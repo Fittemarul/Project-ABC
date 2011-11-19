@@ -1,0 +1,73 @@
+body{
+	background-color: #E7E7E7;
+	color: #777;
+	margin: 30px auto 0 auto;
+	width: 920px;
+	padding: 30px;
+	font-family: Georgia;
+}
+
+a{
+	color: #777;
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+#logo{
+	background-image: url('img/logo.png');
+	background-repeat:no-repeat;
+	background-position:center;
+	width: 100%;
+	height:300px;
+}
+
+#logoSmall{
+	background-image: url('img/logoSmall.png');
+	background-repeat:no-repeat;
+	background-position:center;
+	width: 150px;
+	height: 150px;
+	float:left;
+	margin-right: 20px;
+}
+
+#footer{
+	text-align:center;
+	font-size: 0.7em;
+	padding-top: 5px;
+}
+#loginBox, #appBox{
+	border: 1px solid #CCC;
+	background-color: white;
+	padding: 10px;
+}
+
+.loginInput{
+	font-size: 1.5em;
+}
+
+input[type=text], input[type=password]{
+	border: solid 1px #CCC;
+	border-radius: 5px;
+	outline:none; /* Voor effect van OS X uit te schakelen */
+	padding: 3px;
+}
+
+.error{
+	color: red;
+}
+
+#loggedInAs{
+	float:right;
+	text-align:right;
+	margin-top: 50px;
+}
+
+#clear{
+	height: 2px;
+	margin-top: 10px;
+	clear:both;
+	border-top: dotted 1px #CCC;
+}
