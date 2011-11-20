@@ -13,7 +13,7 @@
 		$username = mysql_real_escape_string($_POST['username']);
 		$password = sha1($_POST['password']);
 
-		$qry_check = mysql_query("SELECT id FROM users WHERE username = '$username' AND userpass = '$password' LIMIT 10");
+		$qry_check = mysql_query("SELECT id FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
 
 		if(mysql_num_rows($qry_check) == 1){
 			$_SESSION['username'] = $username;
