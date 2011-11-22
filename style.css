@@ -66,8 +66,44 @@ input[type=text], input[type=password]{
 }
 
 #clear{
-	height: 2px;
-	margin-top: 10px;
 	clear:both;
-	border-top: dotted 1px #CCC;
 }
+
+#selectieLeerkrachten{
+	list-style-type: none;
+	width: 400px;
+	margin: 0 auto 50px auto;
+}
+
+#selectieLeerkrachten li{
+	display:block;
+	padding: 5px;
+	font-size: 1.2em;
+	margin-top: 10px;
+	border: solid 1px #CECECE;
+	width: 180px;
+	text-align:center;
+}
+
+#selectieLeerkrachten li:hover{
+	background-color: #CECECE;
+	border: solid 1px #777;
+}
+
+#selectieLeerkrachten a{
+	text-decoration:none;
+}
+
+#selectieLeerkrachten li:nth-child(even){
+	float:right;
+}
+
+#selectieLeerkrachten li:nth-child(odd){
+	float:left;
+}
+
+
+
+
+
+
