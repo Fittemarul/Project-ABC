@@ -1,4 +1,4 @@
-body{
+body {
 	background-color: #E7E7E7;
 	color: #777;
 	margin: 30px auto 0 auto;
@@ -7,144 +7,145 @@ body{
 	font-family: Georgia;
 }
 
-a{
+a {
 	color: #777;
 }
 
-a:hover{
-	text-decoration:none;
+a:hover {
+	text-decoration: none;
 }
 
-h1{
+h1 {
 	font-size: 1.4em;
 	border-bottom: solid 1px #CCC;
 }
 
-#logo{
+#logo {
 	background-image: url('img/logo.png');
-	background-repeat:no-repeat;
-	background-position:center;
+	background-repeat: no-repeat;
+	background-position: center;
 	width: 100%;
-	height:300px;
+	height: 300px;
 }
 
-#logoSmall{
+#logoSmall {
 	background-image: url('img/logoSmall.png');
-	background-repeat:no-repeat;
-	background-position:center;
+	background-repeat: no-repeat;
+	background-position: center;
 	width: 150px;
 	height: 150px;
-	float:left;
+	float: left;
 	margin-right: 20px;
 }
 
-#footer{
-	text-align:center;
+#footer {
+	text-align: center;
 	font-size: 0.7em;
 	padding-top: 5px;
 }
-#loginBox, #appBox{
+#loginBox, #appBox {
 	border: 1px solid #CCC;
 	background-color: #fff;
 	padding: 10px;
 }
 
-.loginInput{
+.loginInput {
 	font-size: 1.5em;
 }
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password] {
 	border: solid 1px #CCC;
 	border-radius: 5px;
-	outline:none; /* Voor effect van OS X uit te schakelen */
+	outline: none; /* Voor effect van OS X uit te schakelen */
 	padding: 3px;
 }
 
-.error{
+.error {
 	color: red;
 }
 
-#loggedInAs{
-	float:right;
-	text-align:right;
+#loggedInAs {
+	float: right;
+	text-align: right;
 	margin-top: 50px;
 }
 
-#clear{
-	clear:both;
+#clear {
+	clear: both;
 }
 
-#selectieLeerkrachten{
+#selectieLeerkrachten {
 	list-style-type: none;
 	width: 400px;
 	margin: 0 auto 50px auto;
 }
 
-#selectieLeerkrachten li{
-	display:block;
+#selectieLeerkrachten li {
+	display: block;
 	padding: 5px;
 	font-size: 1.2em;
 	margin-top: 10px;
 	border: solid 1px #CECECE;
 	width: 180px;
-	text-align:center;
+	text-align: center;
 }
 
-#selectieLeerkrachten li:hover{
+#selectieLeerkrachten li:hover {
 	background-color: #CECECE;
 	border: solid 1px #777;
 }
 
-#selectieLeerkrachten a{
-	text-decoration:none;
+#selectieLeerkrachten a {
+	text-decoration: none;
 }
 
-#selectieLeerkrachten li:nth-child(even){
-	float:right;
+#selectieLeerkrachten li:nth-child(even) {
+	float: right;
 }
 
-#selectieLeerkrachten li:nth-child(odd){
-	float:left;
+#selectieLeerkrachten li:nth-child(odd) {
+	float: left;
 }
 
 
 
-th{
+th {
 	background-color: #CCC;
 }
 
-table tr:nth-child(even){
+table tr:nth-child(even) {
 	background-color: #EBEBEB;
 }
 
-.noSelect{
-	/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
-		Cross-browser! */
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+.noSelect {
+/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
+Cross-browser! */
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
 }
 
-#shade{
+#shade {
 	background-color: #000;
-	position:absolute;
-	left:0;
-	right:0;
-	bottom:0;
-	top:0;
-	opacity:0.5;
-	display:none;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	opacity: 0.5;
+	display: none;
+	z-index: 4; /* Boven body en onder #overlay */
 }
 
-#overlay{
+#overlay {
 	padding: 20px;
-	position:absolute;
-	margin: 0 auto;
+	position: absolute;
 	top: 20%;
-	left:25%;
-	right:25%;
-	background-color:white;
-	display:none;
+	left: 25%;
+	right: 25%;
+	background-color: white;
+	display: none;
+	z-index: 6;
 }

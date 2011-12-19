@@ -16,6 +16,8 @@ function toggleShade(){
 		var shade = document.createElement('div');
 		shade.setAttribute('id', 'shade');
 		shade.setAttribute('onclick', 'toggleShade()');
+		
+		document.body.appendChild(shade); // element in body schrijven
 	}
 	
 	if( $('shade').style.display == 'block'){
