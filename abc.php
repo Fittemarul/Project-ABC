@@ -13,14 +13,7 @@ $ref = substr($ref, 0, 7);
 </head>
 <body>
 	<div id="appBox">
-		<div id="logoSmall"> </div>
-
-		<div id="loggedInAs">
-			Welkom <?php echo $username ?><br />
-			<a href="logout.php">Uitloggen</a>
-		</div>
-
-		<div style="clear:both;"> </div>
+		<?php include('conf/header.php') ?>
 
 		<ul id="selectieLeerkrachten">
 

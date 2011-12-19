@@ -22,14 +22,8 @@ echo $_SESSION['is_admin'];
 	</div>
 	
 	<div id="appBox">
-		<a href="abc.php"><div id="logoSmall"> </div></a>
-
-		<div id="loggedInAs">
-			Welkom <?php echo $username ?><br />
-			<a href="logout.php">Uitloggen</a>
-		</div>
-
-		<div style="clear:both;"> </div>
+		
+		<?php include('conf/header.php') ?>
 
 		<h1>Lokalen beheren</h1>
 		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
@@ -47,7 +41,8 @@ echo $_SESSION['is_admin'];
 			
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				echo "<tr>";
-					echo "<td style='text-align:center' class='noSelect'><a href='edit/lokaal.php?id=" . $row['id'] ."'><img src='img/pencil.png'></a>".
+					echo "<td style='text-align:center' class='noSelect'>".
+							"<a href='edit/lokaal.php?id=" . $row['id'] ."'><img src='img/pencil.png'></a>".
 							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png'></a>";
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['beschrijving'] ."</td>";
