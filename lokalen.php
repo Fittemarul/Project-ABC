@@ -57,7 +57,9 @@ echo $_SESSION['is_admin'];
 
 		<div id="clear"> </div>
 	</div>
-	<div id="footer">Copyright 2011, Xavier Decuyper</div>
+	
+	<?php include('conf/footer.php') ?>
+	
 <script type="text/javascript">
 
 function confirmDelete(a){

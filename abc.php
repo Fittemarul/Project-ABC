@@ -1,10 +1,5 @@
 <?php
-
 include("conf/sessionCheck.php");
-
-$ref = file_get_contents('.git/refs/heads/master');
-$ref = substr($ref, 0, 7);
-///c7ea14e
 ?>
 <html>
 <head>
@@ -29,9 +24,7 @@ $ref = substr($ref, 0, 7);
 
 		<div id="clear"> </div>
 	</div>
-
-	<div id="footer">Copyright 2011, Xavier Decuyper<br />
-		<span style="font-family:courier">Ref: <?php echo $ref ?></span></div>
-
+	
+	<?php include('conf/footer.php') ?>
 </body>
 </html>
