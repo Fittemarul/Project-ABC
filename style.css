@@ -53,11 +53,12 @@ h1 {
 	font-size: 1.5em;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea {
 	border: solid 1px #CCC;
 	border-radius: 5px;
 	outline: none; /* Voor effect van OS X uit te schakelen */
 	padding: 3px;
+	resize: none; /* Veld kan niet vergroot worden */
 }
 
 .error {

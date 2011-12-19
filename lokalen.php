@@ -3,8 +3,6 @@
 include("conf/db.php");
 include("conf/sessionCheck.php");
 
-echo $_SESSION['is_admin'];
-
 ?>
 <html>
 <head>
@@ -15,10 +13,20 @@ echo $_SESSION['is_admin'];
 	
 </head>
 <body>
-	<div id="shade" onclick="toggleShade()"></div>
 	<div id="overlay">
 		<h1>Nieuw lokaal toevoegen</h1>
-		<p>geef<br>hier<br>wat<br>info</p>
+		
+			<form action="edit/addLokaal.php" method="post">
+		
+			Lokaal: <input type="text" name="lokaal"><br><br>
+			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving"></textarea><br><br>
+			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen"></textarea>
+		
+			<br><br>
+		
+			<input type="submit" value="Opslaan" id="btnSubmit"/>
+		
+		</form>
 	</div>
 	
 	<div id="appBox">
