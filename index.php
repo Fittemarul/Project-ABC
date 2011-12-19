@@ -13,11 +13,20 @@
 		$username = mysql_real_escape_string($_POST['username']);
 		$password = sha1($_POST['password']);
 
-		$qry_check = mysql_query("SELECT id FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
+		$qry_check = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
 
 		if(mysql_num_rows($qry_check) == 1){
+			
+			// Is admin?
+			//print_r(mysql_fetch_field($qry_check));
+			
+			if(mysql_fetch_field($qry_check) == "1"){
+				$_SESSION['is_admin'] = true;
+			}
+			
 			$_SESSION['username'] = $username;
-			header("Location: abc.php");
+			
+			//header("Location: abc.php");
 		}else{
 			echo "<span class='error'>Gebruikersnaam en/of wachtwoord verkeerd.</span>";
 		}

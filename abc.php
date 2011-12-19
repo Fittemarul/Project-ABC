@@ -26,7 +26,7 @@ include("conf/sessionCheck.php");
 			</li>
 			
 			<li><img src="img/klassen.png">
-				<a href="lokalen.php">Lokalen bekijken</a>
+				<a href="lokalen.php">Lokalen beheren</a>
 			</li>
 
 		</ul>

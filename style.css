@@ -15,6 +15,11 @@ a:hover{
 	text-decoration:none;
 }
 
+h1{
+	font-size: 1.4em;
+	border-bottom: solid 1px #CCC;
+}
+
 #logo{
 	background-image: url('img/logo.png');
 	background-repeat:no-repeat;
@@ -40,7 +45,7 @@ a:hover{
 }
 #loginBox, #appBox{
 	border: 1px solid #CCC;
-	background-color: white;
+	background-color: #fff;
 	padding: 10px;
 }
 
@@ -104,6 +109,20 @@ input[type=text], input[type=password]{
 
 
 
+th{
+	background-color: #CCC;
+}
 
+table tr:nth-child(even){
+	background-color: #EBEBEB;
+}
 
-
+.noSelect{
+	/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
+		Cross-browser! */
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
