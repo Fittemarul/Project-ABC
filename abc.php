@@ -2,6 +2,9 @@
 
 include("conf/sessionCheck.php");
 
+$ref = file_get_contents('.git/refs/heads/master');
+$ref = substr($ref, 0, 7);
+///c7ea14e
 ?>
 <html>
 <head>
@@ -34,7 +37,8 @@ include("conf/sessionCheck.php");
 		<div id="clear"> </div>
 	</div>
 
-	<div id="footer">Copyright 2011, Xavier Decuyper</div>
+	<div id="footer">Copyright 2011, Xavier Decuyper<br />
+		<span style="font-family:courier">Ref: <?php echo $ref ?></span></div>
 
 </body>
 </html>
