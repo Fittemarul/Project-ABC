@@ -126,3 +126,25 @@ table tr:nth-child(even){
 	-o-user-select: none;
 	user-select: none;
 }
+
+#shade{
+	background-color: #000;
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	opacity:0.5;
+	display:none;
+}
+
+#overlay{
+	padding: 20px;
+	position:absolute;
+	margin: 0 auto;
+	top: 20%;
+	left:25%;
+	right:25%;
+	background-color:white;
+	display:none;
+}

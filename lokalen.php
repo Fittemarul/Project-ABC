@@ -11,8 +11,16 @@ echo $_SESSION['is_admin'];
 	<title>Project ABC</title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" src="js/sorttable.js"></script>
+	<script type="text/javascript" src="js/core.js"></script>
+	
 </head>
 <body>
+	<div id="shade" onclick="toggleShade()"></div>
+	<div id="overlay">
+		<h1>Nieuw lokaal toevoegen</h1>
+		<p>geef<br>hier<br>wat<br>info</p>
+	</div>
+	
 	<div id="appBox">
 		<a href="abc.php"><div id="logoSmall"> </div></a>
 
@@ -24,6 +32,7 @@ echo $_SESSION['is_admin'];
 		<div style="clear:both;"> </div>
 
 		<h1>Lokalen beheren</h1>
+		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
 				<th width="10%" class="sorttable_nosort">Opties</th>
