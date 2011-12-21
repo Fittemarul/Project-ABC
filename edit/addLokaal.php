@@ -2,6 +2,10 @@
 include("../conf/sessionCheck.php");
 include("../conf/db.php");
 
+if(!$is_admin){
+	die("U heeft geen toegang tot deze pagina");
+}
+
 $lokaal = mysql_real_escape_string( $_POST['lokaal'] );
 $beschrijving = mysql_real_escape_string( $_POST['beschrijving']);
 $voorzieningen = mysql_real_escape_string($_POST['voorzieningen']);

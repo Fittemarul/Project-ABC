@@ -16,9 +16,12 @@
 		$qry_check = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
 
 		if(mysql_num_rows($qry_check) == 1){
-						
-			if(mysql_fetch_field($qry_check) == "1"){
+			$admin_check = mysql_fetch_row($qry_check);
+			
+			if($admin_check[0] == "1"){
 				$_SESSION['is_admin'] = true;
+			}else{
+				$_SESSION['is_admin'] = false;
 			}
 			
 			$_SESSION['username'] = $username;

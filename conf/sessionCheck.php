@@ -7,5 +7,6 @@ if(!isset($_SESSION['username'])){
 }
 
 $username = $_SESSION["username"];
+$is_admin = $_SESSION['is_admin'];
 
 ?>
