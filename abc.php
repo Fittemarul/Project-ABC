@@ -25,7 +25,7 @@ include("conf/sessionCheck.php");
 			</a>
 			
 			<a href="gebruikers.php">
-				<li><img src="img/user_edit.png">
+				<li><img src="img/users.png">
 				Gebruikers beheren
 				</li>
 			</a>
