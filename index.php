@@ -36,8 +36,6 @@
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 
 	<script type="text/javascript">
-		function $(a){return document.getElementById(a)} // korte functie voor getElementById
-
 		function validateInput(){
 			var username = $('username').value,
 				password = $('password').value;
