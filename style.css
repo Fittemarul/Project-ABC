@@ -87,7 +87,9 @@ input[type=text], input[type=password], textarea {
 	font-size: 1.2em;
 	margin-top: 10px;
 	border: solid 1px #CECECE;
-	width: 180px;
+	width: 400px;
+	height: 30px;
+	line-height: 30px;
 	text-align: center;
 }
 
@@ -99,16 +101,6 @@ input[type=text], input[type=password], textarea {
 #selectieLeerkrachten a {
 	text-decoration: none;
 }
-
-#selectieLeerkrachten li:nth-child(even) {
-	float: right;
-}
-
-#selectieLeerkrachten li:nth-child(odd) {
-	float: left;
-}
-
-
 
 th {
 	background-color: #CCC;

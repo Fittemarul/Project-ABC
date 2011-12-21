@@ -12,13 +12,23 @@ include("conf/sessionCheck.php");
 
 		<ul id="selectieLeerkrachten">
 
-			<li><img src="img/pencil.png">
-				<a href="wensen.php">Wensen invoeren</a>
-			</li>
+			<a href="wensen.php">
+				<li><img src="img/pencil.png">
+					Wensen invoeren
+				</li>
+			</a>
 			
-			<li><img src="img/klassen.png">
-				<a href="lokalen.php">Lokalen beheren</a>
-			</li>
+			<a href="lokalen.php">
+				<li><img src="img/klassen.png">
+					Lokalen beheren
+				</li>
+			</a>
+			
+			<a href="gebruikers.php">
+				<li><img src="img/user_edit.png">
+				Gebruikers beheren
+				</li>
+			</a>
 
 		</ul>
 
