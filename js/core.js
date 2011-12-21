@@ -28,3 +28,5 @@ function toggleShade(){
 		$('overlay').style.display = "block";
 	}
 }
+
+var validate = {}; // object voor alle validatie functies

@@ -16,7 +16,7 @@ include("conf/sessionCheck.php");
 	<div id="overlay">
 		<h1>Nieuw lokaal toevoegen</h1>
 		
-			<form action="edit/addLokaal.php" method="post">
+			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.nieuwlokaal()" name="nieuwLokaal">
 		
 			Lokaal: <input type="text" name="lokaal"><br><br>
 			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving"></textarea><br><br>
@@ -78,6 +78,22 @@ function confirmDelete(a){
 	}else{
 		return false
 	}
+}
+
+validate.nieuwlokaal = function(){
+	
+	var lokaal = document.nieuwLokaal.lokaal.value;
+	var beschrijving = document.nieuwLokaal.beschrijving.value;
+	var voorziening = document.nieuwLokaal.voorzieningen.value;
+	
+	if(lokaal == "" || lokaal == " " || beschrijving == " " || beschrijving == "" || voorziening == "" || voorziening == " "){
+		alert("Gelieve alle velden in te vullen.");
+		return false; // Form mag niet door!
+	}else{
+		$('btnSubmit').value = "Bezig met lokaal toe te voegen...";
+		$('btnSubmit').disabled = true; // niet meer aanklikbaar
+	}
+	
 }
 
 </script>
