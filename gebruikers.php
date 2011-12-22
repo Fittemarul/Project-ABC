@@ -16,10 +16,10 @@ include("conf/sessionCheck.php");
 	<div id="overlay">
 		<h1>Gebruiker toevoegen</h1>
 		
-			<form action="edit/addUser.php" method="post" onsubmit="return validate.form(this); toggleSubmitbtn(this)" name="nieuwUser">
+			<form action="edit/addUser.php" method="post" onsubmit="return validate.form(this);" name="nieuwUser">
 		
 			Gebruikersnaam: <input type="text" name="username" maxlength="3" class="required"><br>
-			Wachtwoord: <input type="password" name="password" id="" class="required"> (<input type="checkbox" onchange="validate.pass(this)"/> Toon wachtwoord)<br>
+			Wachtwoord: <input type="password" name="password" class="required"> (<input type="checkbox" onchange="validate.pass(this)"/> Toon wachtwoord)<br>
 			Administrator: <input type="checkbox" name="admin"/>
 		
 			<br><br>

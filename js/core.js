@@ -36,7 +36,7 @@ var validate = {}; // object voor alle validatie functies
 //
 validate.form = function(formName){
 	
-	for(i=0; i<= formName.length; i++){
+	for(i=0; i<= formName.length -1; i++){
 		
 		if(formName[i].className == "required"){
 			
@@ -50,6 +50,9 @@ validate.form = function(formName){
 		}
 		
 	}
+	
+	// Alles is in orde. Formulier mag door, submit deactiveren
+	toggleSubmitbtn(formName);
 }
 
 //

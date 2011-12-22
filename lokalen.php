@@ -16,7 +16,7 @@ include("conf/sessionCheck.php");
 	<div id="overlay">
 		<h1>Nieuw lokaal toevoegen</h1>
 		
-			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.form(this); toggleSubmitbtn(this)" name="nieuwLokaal">
+			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.form(this);" name="nieuwLokaal">
 		
 			Lokaal: <input type="text" name="lokaal" class="required"><br><br>
 			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving"></textarea><br><br>
