@@ -30,3 +30,40 @@ function toggleShade(){
 }
 
 var validate = {}; // object voor alle validatie functies
+
+//
+// Functie voor het valideren van een formulier
+//
+validate.form = function(formName){
+	
+	for(i=0; i<= formName.length; i++){
+		
+		if(formName[i].className == "required"){
+			
+			var string = formName[i].value;
+			
+			if(string.replace(" ", "") == ""){
+				alert('Gelieve alle velden in te vullen.');
+				return false;
+			}
+			
+		}
+		
+	}
+}
+
+//
+// Functie die de submit button deactiveerd om meerdere
+// kliks te voorkomen.
+//
+function toggleSubmitbtn(formName){
+
+	for(i=0; i<= formName.length -1; i++){
+		if(formName[i].type == "submit"){
+			
+			formName[i].value = "Bezig met laden...";
+			formName[i].disabled = true;
+			
+		}	
+	}
+}
