@@ -1,4 +1,10 @@
 //
+// Namespaces definieren
+//
+var validate = {}; // object voor alle validatie functies
+var bewerk = {}; // object voor alle bewerk functies
+
+//
 // Shortcut voor document.getElementById
 //
 function $(a){
@@ -28,8 +34,6 @@ function toggleShade(){
 		$('overlay').style.display = "block";
 	}
 }
-
-var validate = {}; // object voor alle validatie functies
 
 //
 // Functie voor het valideren van een formulier

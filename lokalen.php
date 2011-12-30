@@ -14,7 +14,7 @@ include("conf/sessionCheck.php");
 </head>
 <body>
 	<div id="overlay">
-		<h1>Nieuw lokaal toevoegen</h1>
+		<h1 id="lokaalAddEdit">Nieuw lokaal toevoegen</h1>
 		
 			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.form(this);" name="nieuwLokaal">
 		
@@ -48,10 +48,18 @@ include("conf/sessionCheck.php");
 			
 			
 			while($row = mysql_fetch_assoc($qry_lokalen)){
+				// Variabelen voor edit functie in JS
+				$lokaalID = $row['id'];
+				$lokaal = $row['lokaal'];
+				$beschrijving = $row['beschrijving'];
+				$voorzieningen = $row['voorzieningen'];
+				
 				echo "<tr>";
+				
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href='edit/lokaal.php?id=" . $row['id'] ."'><img src='img/pencil.png'></a>".
+							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png'></a>".
 							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png'></a></td>";
+							
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['beschrijving'] ."</td>";
 					echo "<td>". $row['voorzieningen'] ."</td>";
@@ -79,6 +87,38 @@ function confirmDelete(a){
 		return false
 	}
 }
+
+//
+// Functie voor bewerken van een lokaal
+// maakt gebruik van het nieuwLokaal formulier (geen extra formulieren: yeah!)
+//
+function editLokaal(id, lokaal, beschrijving, voorzieningen){
+	toggleShade(); // Bewerk overlay tonen
+	
+	//
+	// Waardes te wijzigen lokaal wegschrijven in formulier
+	//
+	$('lokaalAddEdit').value = "Lokaal bewerken";
+	
+	document.nieuwLokaal.lokaal.value = lokaal;
+	document.nieuwLokaal.beschrijving.value = beschrijving;
+	document.nieuwLokaal.voorzieningen.value = voorzieningen;
+	
+	
+	//
+	// Hidden input maken voor id
+	//
+	var hiddenInput = document.createElement('input');
+	hiddenInput.setAttribute('type', 'hidden');
+	hiddenInput.setAttribute('name', 'id');
+	hiddenInput.setAttribute('value', id);
+	
+	document.nieuwLokaal.appendChild(hiddenInput); // element in formulier schrijven
+	
+	document.nieuwLokaal.action = "edit/editLokaal.php";
+	
+}
+
 </script>
 </body>
 </html>
