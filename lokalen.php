@@ -98,7 +98,7 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	//
 	// Waardes te wijzigen lokaal wegschrijven in formulier
 	//
-	$('lokaalAddEdit').value = "Lokaal bewerken";
+	$('lokaalAddEdit').innerHTML = "Lokaal bewerken";
 	
 	document.nieuwLokaal.lokaal.value = lokaal;
 	document.nieuwLokaal.beschrijving.value = beschrijving;
