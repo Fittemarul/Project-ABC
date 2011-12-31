@@ -29,7 +29,13 @@ include("conf/sessionCheck.php");
 				Gebruikers beheren
 				</li>
 			</a>
-
+			
+			<a href="software.php">
+				<li><img src="img/software.png">
+					Softwarepakketten beheren
+				</li>
+			</a>
+			
 		</ul>
 
 		<div id="clear"> </div>
