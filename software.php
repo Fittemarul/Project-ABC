@@ -14,7 +14,7 @@ include("conf/sessionCheck.php");
 </head>
 <body>
 	<div id="overlay">
-		<h1>Nieuw softwarepakket toevoegen</h1>
+		<h1 id="softwareEditAdd">Nieuw softwarepakket toevoegen</h1>
 		
 			<form action="edit/addSoftware.php" method="post" onsubmit="return validate.form(this);" name="nieuwSoftware">
 		
@@ -47,12 +47,17 @@ include("conf/sessionCheck.php");
 			
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				$softID = $row['id'];
+				$softNaam = $row['naam'];
+				$softSoft = $row['software'];
 				
 				echo "<tr>";
 				
-					echo "<td style='text-align:center' class='noSelect'><a href='javascript:confirmDelete($softID)'><img src='img/software_delete.png'></a></td>";
-					echo "<td>". $row['naam'] ."</td>";
-					echo "<td>". $row['software'] ."</td>";
+					echo "<td style='text-align:center' class='noSelect'>".
+							"<a href='javascript:confirmDelete($softID)'><img src='img/software_delete.png'></a> ".
+							"<a href=\" javascript:editSoft('$softID', '$softNaam', '$softSoft')\"><img src='img/software_edit.png'></a>".
+						"</td>";
+					echo "<td>$softNaam</td>";
+					echo "<td>$softSoft</td>";
 				echo "</tr>";
 			}
 			
@@ -76,6 +81,31 @@ function confirmDelete(a){
 	}else{
 		return false
 	}
+}
+
+function editSoft(id, naam, software){
+	toggleShade(); // Bewerk overlay tonen
+	
+	//
+	// Waardes te wijzigen lokaal wegschrijven in formulier
+	//
+	$('softwareEditAdd').innerHTML = "Softwarepakket bewerken";
+	
+	document.nieuwSoftware.pakket.value = naam;
+	document.nieuwSoftware.software.value = software;
+	
+	
+	//
+	// Hidden input maken voor id
+	//
+	var hiddenInput = document.createElement('input');
+	hiddenInput.setAttribute('type', 'hidden');
+	hiddenInput.setAttribute('name', 'id');
+	hiddenInput.setAttribute('value', id);
+	
+	document.nieuwSoftware.appendChild(hiddenInput); // element in formulier schrijven
+	
+	document.nieuwSoftware.action = "edit/editSoftware.php";
 }
 
 </script>
