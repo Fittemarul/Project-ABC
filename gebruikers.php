@@ -52,24 +52,10 @@ include("conf/sessionCheck.php");
 			while($row = mysql_fetch_assoc($qry_users)){
 				$user_id = $row['id'];
 				
-				if($row['is_admin'] == "1"){
-					$admin = "Ja";
-				}else {
-					$admin = "Nee";
-				}
-				
-				if($row['active'] == "1"){
-					$active = "Ja";
-				}else{
-					$active = "Nee";
-				}
-				
-				if($row['time_lastlogon'] == "0000-00-00 00:00:00"){
-					$time_lastlogon = "Nog niet ingelogd";
-				}else{
-					$time_lastlogon = $row['time_lastlogon'];
-				}
-				
+				$admin = ($row['is_admin'] == '1' ? 'Ja' : "Nee");
+				$active = ($row['active'] == '1' ? 'Ja' : "Nee");
+				$time_lastlogon = ($row['time_lastlogon'] == "0000-00-00 00:00:00" ? "Nog niet ingelogd" : $row['time_lastlogon']);
+
 				echo "<tr>";
 					echo "<td style='text-align:center'><a href='#' onclick='deleteUser($user_id)'><img src='img/user_delete.png' title='Verwijderen'></a></td>";
 					echo "<td>". $row['username'] ."</td>";
