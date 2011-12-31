@@ -10,10 +10,13 @@
 	if($_POST){
 		include("conf/db.php"); // verbinding maken met database
 
-		$username = mysql_real_escape_string($_POST['username']);
-		$password = sha1($_POST['password']);
+		$username = strtoupper($_POST['username']); // gebruikersnaam eerst naar uppercase
+		$username = mysql_real_escape_string($username); // veilig maken voor db
+		
+		$password = sha1($_POST['password']); // wachtwoord direct hashen
 
 		$qry_check = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
+
 
 		//
 		// Controleren of er slechts 1 record overeenkomt met de eisen

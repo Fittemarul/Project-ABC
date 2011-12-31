@@ -6,7 +6,9 @@ if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
 }
 
-$username = mysql_real_escape_string( strtoupper($_POST['username']) ); // Wordt eerst geconverteerd naar uppercase
+$username = strtoupper($_POST['username']); // Wordt eerst geconverteerd naar uppercase
+$username = mysql_real_escape_string($username); // veilig maken voor db
+
 $pass = sha1( $_POST['password'] ); // direct hashen!
 
 if($_POST['admin'] == true){
