@@ -8,6 +8,7 @@ if(!$is_admin){
 
 $username = strtoupper($_POST['username']); // Wordt eerst geconverteerd naar uppercase
 $username = mysql_real_escape_string($username); // veilig maken voor db
+$actief = ($_POST['actief'] == 'on' ? '1' : "0"); // Is de gebruiker actief?
 
 $pass = sha1( $_POST['password'] ); // direct hashen!
 

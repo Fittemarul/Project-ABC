@@ -145,3 +145,8 @@ user-select: none;
 	display: none;
 	z-index: 6;
 }
+
+#helpPsswd{
+	color:red;
+	display:none;
+}
