@@ -9,8 +9,7 @@ include("conf/sessionCheck.php");
 	<title>Project ABC</title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" src="js/sorttable.js"></script>
-	<script type="text/javascript" src="js/core.js"></script>
-	
+	<script type="text/javascript" src="js/core.js"></script>	
 </head>
 <body>
 	<div id="overlay">
@@ -69,8 +68,8 @@ include("conf/sessionCheck.php");
 
 				echo "<tr>";
 					echo "<td style='text-align:center'>".
-							"<a href='#' onclick='deleteUser($user_id)'><img src='img/user_delete.png' title='Verwijderen'></a> ".
-							"<a href=\"javascript:editUser('$user_id', '$user_name', $admin_edit, $active_edit)\"><img src='img/user_edit.png'></a>".
+							"<a href='#' onclick='deleteUser($user_id)'><img src='img/user_delete.png' title='Gebruiker verwijderen'></a> ".
+							"<a href=\"javascript:editUser('$user_id', '$user_name', $admin_edit, $active_edit)\"><img src='img/user_edit.png' title='Gebruiker bewerken'></a>".
 						"</td>";
 					echo "<td>$user_name</td>";
 					echo "<td>$time_lastlogon</td>";

@@ -53,8 +53,8 @@ include("conf/sessionCheck.php");
 				echo "<tr>";
 				
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href='javascript:confirmDelete($softID)'><img src='img/software_delete.png'></a> ".
-							"<a href=\" javascript:editSoft('$softID', '$softNaam', '$softSoft')\"><img src='img/software_edit.png'></a>".
+							"<a href='javascript:confirmDelete($softID)'><img src='img/software_delete.png' title='Softwarepakket verwijderen'></a> ".
+							"<a href=\" javascript:editSoft('$softID', '$softNaam', '$softSoft')\"><img src='img/software_edit.png' title='Softwarepakket bewerken'></a>".
 						"</td>";
 					echo "<td>$softNaam</td>";
 					echo "<td>$softSoft</td>";

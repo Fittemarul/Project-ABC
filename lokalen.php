@@ -57,8 +57,8 @@ include("conf/sessionCheck.php");
 				echo "<tr>";
 				
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png'></a>".
-							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png'></a></td>";
+							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
+							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>";
 							
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['beschrijving'] ."</td>";
