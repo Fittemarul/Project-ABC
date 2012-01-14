@@ -70,6 +70,7 @@ include("conf/sessionCheck.php");
 					echo "<td style='text-align:center'>".
 							"<a href='#' onclick='deleteUser($user_id)'><img src='img/user_delete.png' title='Gebruiker verwijderen'></a> ".
 							"<a href=\"javascript:editUser('$user_id', '$user_name', $admin_edit, $active_edit)\"><img src='img/user_edit.png' title='Gebruiker bewerken'></a>".
+							" <a href=\"javascript:resetPsw('$user_id', '$user_name');\"><img src='img/user_resetpsw.png' title='Reset wachtwoord'></a>".
 						"</td>";
 					echo "<td>$user_name</td>";
 					echo "<td>$time_lastlogon</td>";
@@ -134,6 +135,18 @@ function editUser(id, username, is_admin, active){
 	
 	document.nieuwUser.action = "edit/editUser.php";
 	
+}
+
+function resetPsw(userID, username){
+	var bevestig = confirm("Weet u zeker dat u het wachtwoord van '" + username + "' wilt resetten?");
+	
+	if(bevestig){
+		var password = prompt("Geef het nieuwe wachtwoord voor '" + username + "' op:", "");
+		
+		if(password != "" && password != " "){
+			window.location = "edit/user_resetpass.php?id=" + userID + "&pass=" + password;
+		}
+	}
 }
 </script>
 </body>
