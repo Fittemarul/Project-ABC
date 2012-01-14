@@ -14,7 +14,7 @@ include("conf/sessionCheck.php");
 
 			<a href="wensen.php">
 				<li><img src="img/pencil.png">
-					Wensen invoeren
+					Wensen invoeren<sup>*</sup>
 				</li>
 			</a>
 			
@@ -33,6 +33,12 @@ include("conf/sessionCheck.php");
 			<a href="software.php">
 				<li><img src="img/software.png">
 					Softwarepakketten beheren
+				</li>
+			</a>
+			
+			<a href="computers.php">
+				<li><img src="img/inventaris.png">
+					Computer inventaris
 				</li>
 			</a>
 			

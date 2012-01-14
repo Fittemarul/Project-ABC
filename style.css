@@ -114,13 +114,13 @@ table tr:nth-child(even) {
 }
 
 .noSelect {
-/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
-Cross-browser! */
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--o-user-select: none;
-user-select: none;
+	/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
+	Cross-browser! */
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 #shade {
