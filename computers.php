@@ -53,14 +53,18 @@ include("conf/sessionCheck.php");
 				<th width="20%">HDD</th>
 				<th width="20%">Type</th>
 				<th width="35%">Lokaal</th>
+				<th width="35%">Leverancier</th>
 				<th width="35%">Software</th>
 			</tr>
 		
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, 
-												pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal
-										FROM inventaris a JOIN lokalen b
-										ON a.lokaal_id = b.id");
+			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam
+										FROM inventaris a 
+										INNER JOIN lokalen b 
+										ON a.lokaal_id = b.id
+
+										INNER JOIN leveranciers c
+										ON a.pc_leverancier = c.id");
 			
 			
 			
@@ -84,6 +88,7 @@ include("conf/sessionCheck.php");
 					
 					
 					echo "<td>". $row['lokaal'] ."</td>";
+					echo "<td>". $row['leverancier_naam'] ."</td>";
 					echo "<td>". $row['pc_software'] ."</td>";
 				echo "</tr>";
 			}
