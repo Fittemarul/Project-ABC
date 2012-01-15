@@ -51,13 +51,13 @@ include("conf/sessionCheck.php");
 				// Variabelen voor edit functie in JS
 				$lokaalID = $row['id'];
 				$lokaal = $row['lokaal'];
-				$beschrijving = $row['beschrijving'];
-				$voorzieningen = $row['voorzieningen'];
+				$beschrijving = str_replace(array("\r", "\r\n", "\n"), "<br>", $row['beschrijving']);
+				$voorzieningen = str_replace(array("\r", "\r\n", "\n"), "<br>", $row['voorzieningen']);
 				
 				echo "<tr>";
 				
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<input type='radio' name='actions'>"
+							"<input type='radio' name='actions' onClick=\"selectRecord('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen')\">"
 							
 						//	"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
 						//	"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>"
@@ -82,6 +82,10 @@ include("conf/sessionCheck.php");
 	<?php include('conf/footer.php') ?>
 	
 <script type="text/javascript">
+//
+// Variabelen die globaal nodig zijn en gedeeld worden door meerdere functies
+//
+var lokaalID, lokaalNaam, lokaalBeschrijving, lokaalVoorzieningen;
 
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
@@ -91,6 +95,17 @@ function confirmDelete(a){
 	}else{
 		return false
 	}
+}
+
+//
+// Functie die de variabelen wegschrijft die nodig zijn bij bewerken van een record
+//
+function selectRecord(id, lokaal, beschrijving, voorzieningen){
+	alert("selectedRecord");
+	lokaalID = id;
+	lokaalNaam = lokaal;
+	lokaalBeschrijving = beschrijving;
+	lokaalVoorzieningen = voorzieningen;
 }
 
 //
