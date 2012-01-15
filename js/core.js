@@ -42,7 +42,7 @@ validate.form = function(formName){
 	
 	for(i=0; i<= formName.length -1; i++){
 		
-		if(formName[i].className == "required"){
+		if(formName[i].className.indexOf("required") != -1){
 			
 			var string = formName[i].value;
 			
