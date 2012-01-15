@@ -48,7 +48,7 @@ include("conf/sessionCheck.php");
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				$softID = $row['id'];
 				$softNaam = $row['naam'];
-				$softSoft = $row['software'];
+				$softSoft = str_replace("\n", "<br>", $row['software']); // Lege lijnen weergeven
 				
 				echo "<tr>";
 				

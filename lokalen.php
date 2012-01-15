@@ -19,8 +19,8 @@ include("conf/sessionCheck.php");
 			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.form(this);" name="nieuwLokaal">
 		
 			Lokaal: <input type="text" name="lokaal" class="required"><br><br>
-			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving"></textarea><br><br>
-			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen" class="required"></textarea>
+			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving" class="linebreak"></textarea><br><br>
+			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen" class="required linebreak"></textarea>
 		
 			<br><br>
 		
@@ -61,8 +61,8 @@ include("conf/sessionCheck.php");
 							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>";
 							
 					echo "<td>". $row['lokaal'] ."</td>";
-					echo "<td>". $row['beschrijving'] ."</td>";
-					echo "<td>". $row['voorzieningen'] ."</td>";
+					echo "<td>". str_replace("\n", "<br>", $row['beschrijving']) ."</td>";
+					echo "<td>". str_replace("\n", "<br>", $row['voorzieningen']) ."</td>";
 				echo "</tr>";
 			}
 			
@@ -117,6 +117,22 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	
 	document.nieuwLokaal.action = "edit/editLokaal.php";
 	
+}
+
+validate.linebreaks = function(formName){
+	
+	for(i=0; i<= formName.length -1; i++){
+		
+		if(formName[i].className.indexOf("linebreak") != -1){
+			
+			formName[i].value.replace("\n", "<br>");
+			
+		}
+		
+	}
+	
+	// Alles is in orde. Formulier mag door, submit deactiveren
+	toggleSubmitbtn(formName);
 }
 
 </script>
