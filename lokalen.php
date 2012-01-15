@@ -37,7 +37,7 @@ include("conf/sessionCheck.php");
 		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
-				<th width="10%" class="sorttable_nosort">Opties</th>
+				<th class="sorttable_nosort"> </th>
 				<th width="20%">Lokaal</th>
 				<th width="40%">Beschrijving</th>
 				<th width="40%">Voorzieningen</th>
@@ -57,8 +57,11 @@ include("conf/sessionCheck.php");
 				echo "<tr>";
 				
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
-							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>";
+							"<input type='radio' name='actions'>"
+							
+						//	"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
+						//	"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>"
+						;
 							
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". str_replace("\n", "<br>", $row['beschrijving']) ."</td>";
@@ -70,6 +73,8 @@ include("conf/sessionCheck.php");
 		?>
 		
 		</table>
+		
+		<p>Met geselecteerde record: <a href="javascript:">
 
 		<div id="clear"> </div>
 	</div>
