@@ -113,6 +113,11 @@ table tr:nth-child(even) {
 	background-color: #EBEBEB;
 }
 
+table tr:hover{
+	background-color: #98B1C4;
+	color: #000;
+}
+
 .noSelect {
 	/* Zorgt ervoor dat elementen niet selecteerbaar zijn.
 	Cross-browser! */
