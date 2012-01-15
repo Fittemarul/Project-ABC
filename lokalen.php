@@ -118,23 +118,6 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	document.nieuwLokaal.action = "edit/editLokaal.php";
 	
 }
-
-validate.linebreaks = function(formName){
-	
-	for(i=0; i<= formName.length -1; i++){
-		
-		if(formName[i].className.indexOf("linebreak") != -1){
-			
-			formName[i].value.replace("\n", "<br>");
-			
-		}
-		
-	}
-	
-	// Alles is in orde. Formulier mag door, submit deactiveren
-	toggleSubmitbtn(formName);
-}
-
 </script>
 </body>
 </html>
