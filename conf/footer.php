@@ -6,6 +6,6 @@
 	$ref = substr($ref, 0, 7);
 ?>
 
-<div id="footer">Copyright 2011, Xavier Decuyper<br />
+<div id="footer">Copyright 2011-2012, Xavier Decuyper<br />
 	<span style="font-family:courier">Ref: <?php echo $ref ?></span>
 </div>
