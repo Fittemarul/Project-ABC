@@ -55,7 +55,7 @@ h1 {
 	font-size: 1.5em;
 }
 
-input[type=text], input[type=password], textarea {
+input[type=text], input[type=password], textarea, input[type=date], input[type=number] {
 	border: solid 1px #CCC;
 	border-radius: 5px;
 	outline: none; /* Voor effect van OS X uit te schakelen */
@@ -154,4 +154,10 @@ table tr:hover{
 #helpPsswd{
 	color:red;
 	display:none;
+}
+
+label{
+	width: 150px;
+	display:block;
+	float:left;
 }

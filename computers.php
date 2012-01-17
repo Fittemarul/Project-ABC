@@ -10,7 +10,7 @@ include("conf/sessionCheck.php");
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
-	
+	<script type="text/javascript" src="js/xhr.js"></script>
 </head>
 <body>
 	<div id="overlay">
@@ -18,17 +18,33 @@ include("conf/sessionCheck.php");
 		
 			<form action="edit/addComputer.php" method="post" onsubmit="return validate.form(this);" name="nieuwComputer">
 		
-			PC naam: <input type="text" name="lokaal" class="required"><br><br>
-			Lokaal: PICKLIST<br>
-			RAM: <input type="text"><br>
-			CPU: <input type="text">GHz<br>
-			HDD: <input type="number">GB<br>
-			GPU: <input type="text"><br>
-			Datum aankoop: <input type="date"><br>
-			Netwerkkaart: <input type="text"><br>
-			Leverancier: PICKLIST<br>
-			Type: PICKLIST (LAPTOP/DESKTOP)<br>
-			Software: ????<br>
+			<label>PC naam:</label> <input type="text" name="lokaal" class="required"><br><br>
+			
+			<label>Lokaal:</label> 
+				<select name="lokaal" id="nieuwLokaal">
+				  <option value="0">Bezig met laden...</option>
+				</select>
+			
+			<br>
+			
+			<label>RAM:</label> <input type="text">MB<br>
+			<label>CPU:</label> <input type="text">GHz<br>
+			<label>HDD:</label> <input type="number">GB<br>
+			<label>GPU:</label> <input type="text"><br>
+			<label>Aankoopdatum:</label> <input type="date"><br>
+			<label>Netwerkkaart:</label> <input type="text"><br>
+			
+			<label>Leverancier:</label> PICKLIST<br>
+			
+			
+			<label>Type:</label>
+				<select name="pc_type">
+				  <option value="0">Vaste computer</option>
+				  <option value="1">Laptop</option>
+				</select>
+			<br>
+				
+			<label>Software:</label> ????<br>
 			
 			
 			<br><br>
@@ -43,7 +59,7 @@ include("conf/sessionCheck.php");
 		<?php include('conf/header.php') ?>
 
 		<h1>Computer inventaris</h1>
-		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
+		<p><a href="#" onclick="addComputer()"><img src="img/add.png"> Lokaal toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
 				<th width="5%" class="sorttable_nosort"></th>
@@ -146,6 +162,30 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	document.nieuwLokaal.appendChild(hiddenInput); // element in formulier schrijven
 	
 	document.nieuwLokaal.action = "edit/editLokaal.php";
+	
+}
+
+//
+// Functie voor het toevoegen van een computer
+//
+function addComputer(){
+	toggleShade(); // Bewerk overlay tonen
+	
+	// Lokalen via AJAX ophalen van server
+	xhr("ajax/lokalen.php", verwerkLokalen);
+	
+	
+}
+
+function verwerkLokalen(text){
+	var lokalen = eval("(" + text.responseText + ')');
+	
+	for(i=0; i<= lokalen.length -1; i++){
+	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam);
+	}
+	
+	
+	alert(obj[0].id);
 	
 }
 

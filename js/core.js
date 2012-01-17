@@ -3,6 +3,7 @@
 //
 var validate = {}; // object voor alle validatie functies
 var bewerk = {}; // object voor alle bewerk functies
+var verwerk = {};
 
 //
 // Shortcut voor document.getElementById
