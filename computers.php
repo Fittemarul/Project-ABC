@@ -75,6 +75,7 @@ include("conf/sessionCheck.php");
 				$compNaam = $row['pc_naam'];
 				$compLokaal = $row['lokaal_id'];
 				$compSoftware = $row['pc_software'];
+				$compType = $row['pc_type'];
 				
 				echo "<tr>";
 				
@@ -84,8 +85,12 @@ include("conf/sessionCheck.php");
 					echo "<td>". $row['pc_ram'] ."</td>";
 					echo "<td>". $row['pc_cpu'] ."</td>";
 					echo "<td>". $row['pc_hdd'] ."</td>";
-					echo "<td>". $row['pc_type'] ."</td>";
 					
+					if($compType == "0"){
+						echo "<td>Vast</td>";
+					}else{
+						echo "<td>Laptop</td>";
+					}
 					
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
