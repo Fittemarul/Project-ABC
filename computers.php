@@ -46,25 +46,23 @@ include("conf/sessionCheck.php");
 		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
-				<th width="10%" class="sorttable_nosort">Opties</th>
-				<th width="20%">PC naam</th>
-				<th width="20%">RAM</th>
-				<th width="20%">CPU</th>
-				<th width="20%">HDD</th>
-				<th width="20%">Type</th>
-				<th width="35%">Lokaal</th>
-				<th width="35%">Leverancier</th>
+				<th width="5%" class="sorttable_nosort"></th>
+				<th width="10%">PC naam</th>
+				<th width="10%">RAM (MB)</th>
+				<th width="10%">CPU (GHz)</th>
+				<th width="10%">HDD (GB)</th>
+				<th width="10%">Type</th>
+				<th width="10%">Lokaal</th>
+				<th width="15%">Leverancier</th>
 				<th width="35%">Software</th>
 			</tr>
 		
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam
-										FROM inventaris a 
-										INNER JOIN lokalen b 
-										ON a.lokaal_id = b.id
-
-										INNER JOIN leveranciers c
-										ON a.pc_leverancier = c.id");
+			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam, software
+			FROM inventaris a
+			INNER JOIN lokalen b ON a.lokaal_id = b.id
+			INNER JOIN leveranciers c ON a.pc_leverancier = c.id
+			INNER JOIN software d ON a.pc_software = d.id");
 			
 			
 			
@@ -81,7 +79,7 @@ include("conf/sessionCheck.php");
 				
 					echo "<td style='text-align:center' class='noSelect'>-</td>";
 							
-					echo "<td>". $row['pc_naam'] ."</td>";
+					echo "<td>$compNaam</td>";
 					echo "<td>". $row['pc_ram'] ."</td>";
 					echo "<td>". $row['pc_cpu'] ."</td>";
 					echo "<td>". $row['pc_hdd'] ."</td>";
@@ -94,7 +92,7 @@ include("conf/sessionCheck.php");
 					
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
-					echo "<td>". $row['pc_software'] ."</td>";
+					echo "<td>". str_replace("\n", "<br>", $row['software']) ."</td>";
 				echo "</tr>";
 			}
 			
