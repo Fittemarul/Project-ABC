@@ -3,6 +3,10 @@
 include("conf/db.php");
 include("conf/sessionCheck.php");
 
+if(!$is_admin){
+	die("U heeft geen toegang tot deze pagina");
+}
+
 ?>
 <html>
 <head>
