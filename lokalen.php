@@ -48,7 +48,7 @@ if(!$is_admin){
 			</tr>
 		
 		<?php
-			$qry_lokalen = mysql_query("SELECT * FROM lokalen LIMIT 100");
+			$qry_lokalen = mysql_query("SELECT * FROM lokalen");
 			
 			
 			while($row = mysql_fetch_assoc($qry_lokalen)){
@@ -83,7 +83,7 @@ if(!$is_admin){
 <script type="text/javascript">
 
 function confirmDelete(a){
-	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
+	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?\n(OPGELET: Alle computers die geassocieerd zijn met dit lokalen zullen ook verwijderd worden!)");
 	
 	if(msg){
 		window.location = "edit/deleteLokaal.php?id=" + a;
