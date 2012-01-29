@@ -21,6 +21,6 @@
 	</div>
 
 	<div id="footer">Copyright 2011, Xavier Decuyper</div>
-
+à
 </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+    if(strpos($GLOBALS['HTTP_USER_AGENT'], "MSIE")){
+        exit(header("Location: ieSorry.php"));
+    } 
+?>
 <a href="abc.php"><div id="logoSmall"> </div></a>
 
 <div id="loggedInAs">
