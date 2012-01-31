@@ -48,7 +48,7 @@ if(!$is_admin){
 			</tr>
 		
 		<?php
-			$qry_lokalen = mysql_query("SELECT * FROM lokalen");
+			$qry_lokalen = mysql_query("SELECT * FROM lokalen ORDER BY lokaal ASC");
 			
 			
 			while($row = mysql_fetch_assoc($qry_lokalen)){
