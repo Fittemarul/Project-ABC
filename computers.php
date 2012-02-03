@@ -3,7 +3,12 @@
 include("conf/db.php");
 include("conf/sessionCheck.php");
 
+if(!$is_admin){
+	die("U heeft geen toegang tot deze pagina");
+}
+
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Project ABC</title>
@@ -34,7 +39,12 @@ include("conf/sessionCheck.php");
 			<label>Aankoopdatum:</label> <input type="date"><br>
 			<label>Netwerkkaart:</label> <input type="text"><br>
 			
-			<label>Leverancier:</label> PICKLIST<br>
+			<label>Leverancier:</label>
+				<select name="leverancier" id="nieuwLeverancier">
+					<option value="0">Bezig met laden...</option>
+				</select>
+                        
+            <br>
 			
 			
 			<label>Type:</label>
@@ -42,9 +52,15 @@ include("conf/sessionCheck.php");
 				  <option value="0">Vaste computer</option>
 				  <option value="1">Laptop</option>
 				</select>
-			<br>
+			
+			<br><br>
 				
-			<label>Software:</label> ????<br>
+			<h1>Softwarepakketten koppelen</h1>
+			<label>Toevoegen:</label> 
+				<select name="softwarepakketten" id="nieuwSoftware">
+					<option value="0">Bezig met laden...</option>
+				</select>
+			<br>
 			
 			
 			<br><br>
@@ -59,7 +75,7 @@ include("conf/sessionCheck.php");
 		<?php include('conf/header.php') ?>
 
 		<h1>Computer inventaris</h1>
-		<p><a href="#" onclick="addComputer()"><img src="img/add.png"> Lokaal toevoegen</a></p>
+		<p><a href="#" onclick="addComputer()"><img src="img/add.png"> Computer toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
 				<th width="5%" class="sorttable_nosort"></th>
@@ -135,37 +151,6 @@ function confirmDelete(a){
 }
 
 //
-// Functie voor bewerken van een lokaal
-// maakt gebruik van het nieuwLokaal formulier (geen extra formulieren: yeah!)
-//
-function editLokaal(id, lokaal, beschrijving, voorzieningen){
-	toggleShade(); // Bewerk overlay tonen
-	
-	//
-	// Waardes te wijzigen lokaal wegschrijven in formulier
-	//
-	$('lokaalAddEdit').innerHTML = "Lokaal bewerken";
-	
-	document.nieuwLokaal.lokaal.value = lokaal;
-	document.nieuwLokaal.beschrijving.value = beschrijving;
-	document.nieuwLokaal.voorzieningen.value = voorzieningen;
-	
-	
-	//
-	// Hidden input maken voor id
-	//
-	var hiddenInput = document.createElement('input');
-	hiddenInput.setAttribute('type', 'hidden');
-	hiddenInput.setAttribute('name', 'id');
-	hiddenInput.setAttribute('value', id);
-	
-	document.nieuwLokaal.appendChild(hiddenInput); // element in formulier schrijven
-	
-	document.nieuwLokaal.action = "edit/editLokaal.php";
-	
-}
-
-//
 // Functie voor het toevoegen van een computer
 //
 function addComputer(){
@@ -174,6 +159,11 @@ function addComputer(){
 	// Lokalen via AJAX ophalen van server
 	xhr("ajax/lokalen.php", verwerkLokalen);
 	
+	// Leveranciers via AJAX ophalen van server
+    xhr("ajax/leveranciers.php", verwerkLeveranciers);
+
+	// Softwarepakketten ophalen
+	xhr("ajax/software.php", verwerkSoftware);
 	
 }
 
@@ -183,10 +173,22 @@ function verwerkLokalen(text){
 	for(i=0; i<= lokalen.length -1; i++){
 	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam);
 	}
-	
-	
-	alert(obj[0].id);
-	
+}
+
+function verwerkLeveranciers(data){
+    var leveranciers = eval("(" + data.responseText + ")"); // Parse the JSON array
+    
+    for(i=0; i<= leveranciers.length -1; i++){
+        $('nieuwLeverancier').options[i] = new Option(leveranciers[i].leverancier);
+    }
+}
+
+function verwerkSoftware(data){
+	var software = eval("(" + data.responseText + ")"); // Parse the JSON array
+    
+    for(i=0; i<= software.length -1; i++){
+        $('nieuwSoftware').options[i] = new Option(software[i].softnaam, software[i].id);
+    }
 }
 
 </script>
