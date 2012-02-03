@@ -44,6 +44,12 @@ include("conf/sessionCheck.php");
 				</li>
 			</a>
 			
+			<a href="backup.php">
+				<li><img src="img/backup.png">
+					Maak backup
+				</li>
+			</a>
+			
 		</ul>
 
 		<div id="clear"> </div>
