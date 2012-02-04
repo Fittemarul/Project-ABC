@@ -56,7 +56,7 @@ if(!$is_admin){
 				$lokaalID = $row['id'];
 				$lokaal = $row['lokaal'];
 				$beschrijving = $row['beschrijving'];
-				$voorzieningen = $row['voorzieningen'];
+				$voorzieningen = str_replace("\n", "<br>", $row['voorzieningen']);
 				
 				echo "<tr>";
 				
@@ -106,7 +106,7 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	
 	document.nieuwLokaal.lokaal.value = lokaal;
 	document.nieuwLokaal.beschrijving.value = beschrijving;
-	document.nieuwLokaal.voorzieningen.value = voorzieningen;
+	document.nieuwLokaal.voorzieningen.value = voorzieningen.replace(/<br>/g, "\n");
 	
 	
 	//

@@ -98,7 +98,7 @@ function editSoft(id, naam, software){
 	$('softwareEditAdd').innerHTML = "Softwarepakket bewerken";
 	
 	document.nieuwSoftware.pakket.value = naam;
-	document.nieuwSoftware.software.value = software;
+	document.nieuwSoftware.software.value = software.replace(/<br>/g, "\n");
 	
 	
 	//
