@@ -24,7 +24,7 @@ if(!$is_admin){
 		
 			Lokaal: <input type="text" name="lokaal" class="required"><br><br>
 			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving" class="linebreak"></textarea><br><br>
-			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen" class="required linebreak"></textarea>
+			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen" class="linebreak"></textarea>
 		
 			<br><br>
 		
