@@ -16,8 +16,11 @@ if(!$is_admin){
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
 	<script type="text/javascript" src="js/xhr.js"></script>
+	<script src="js/calendar.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="calendar.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
 </head>
-<body>
+<body onload="calendar.set('aankoopdatum');">
 	<div id="overlay">
 		<h1 id="lokaalAddEdit">Computer toevoegen</h1>
 		
@@ -36,7 +39,7 @@ if(!$is_admin){
 			<label>CPU:</label> <input type="text">GHz<br>
 			<label>HDD:</label> <input type="number">GB<br>
 			<label>GPU:</label> <input type="text"><br>
-			<label>Aankoopdatum:</label> <input type="date"><br>
+			<label>Aankoopdatum:</label> <input type="date" id="aankoopdatum"><br>
 			<label>Netwerkkaart:</label> <input type="text"><br>
 			
 			<label>Leverancier:</label>
@@ -60,8 +63,11 @@ if(!$is_admin){
 				<select name="softwarepakketten" id="nieuwSoftware">
 					<option value="0">Bezig met laden...</option>
 				</select>
+			<a href="#" onclick="addSoftware()">Voeg toe</a>
 			<br>
 			
+			<ul id="gelinkteSoftware">
+			</ul>
 			
 			<br><br>
 		
@@ -190,6 +196,10 @@ function verwerkSoftware(data){
         $('nieuwSoftware').options[i] = new Option(software[i].softnaam, software[i].id);
     }
 }
+
+//
+// functie die geselecteerd software pakket toevoegd aan 
+//
 
 </script>
 </body>
