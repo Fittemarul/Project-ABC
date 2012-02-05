@@ -20,7 +20,7 @@ while($row = mysql_fetch_assoc($qry_lokalen)){
 		
 		$output .= "\"id\":" .$row['id'].",";
 		$output .= "\"softnaam\":\"" .$row['naam']. "\",";
-		$output .= "\"software\":\"" .str_replace(array("\r", "\r\n", "\n"), "<br>", $row['software']). "\"";
+		$output .= "\"software\":\"" .str_replace(array("\r", "\r\n", "\n", "<br><br>"), "<br>", $row['software']). "\"";
 		
 		
 	$output .= "},";
