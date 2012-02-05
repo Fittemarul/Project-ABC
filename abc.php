@@ -24,6 +24,12 @@ include("conf/sessionCheck.php");
 			<br><br>
 			<h1>Leerkrachten</h1>
 			
+			<a href="admWensen.php">
+				<li><img src="img/wensen.png">
+					Wensen bekijken
+				</li>
+			</a>
+			
 			<a href="lokalen.php">
 				<li><img src="img/klassen.png">
 					Lokalen beheren
