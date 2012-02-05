@@ -12,13 +12,17 @@ include("conf/sessionCheck.php");
 	<div id="appBox">
 		<?php include('conf/header.php') ?>
 
+		
 		<ul id="selectieLeerkrachten">
+			<h1>Leerkrachten</h1>
 
 			<a href="wensen.php">
 				<li><img src="img/pencil.png">
 					Wensen invoeren
 				</li>
 			</a>
+			<br><br>
+			<h1>Leerkrachten</h1>
 			
 			<a href="lokalen.php">
 				<li><img src="img/klassen.png">
