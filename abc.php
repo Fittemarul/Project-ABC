@@ -16,7 +16,7 @@ include("conf/sessionCheck.php");
 
 			<a href="wensen.php">
 				<li><img src="img/pencil.png">
-					Wensen invoeren<sup>*</sup>
+					Wensen invoeren
 				</li>
 			</a>
 			
