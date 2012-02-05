@@ -48,6 +48,12 @@ include("conf/sessionCheck.php");
 				</li>
 			</a>
 			
+			<a href="leveranciers.php">
+				<li><img src="img/leveranciers.png">
+					Leveranciers beheren
+				</li>
+			</a>
+			
 			<a href="backup.php">
 				<li><img src="img/backup.png">
 					Maak backup
