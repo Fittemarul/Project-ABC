@@ -94,7 +94,7 @@ function verwerkLokalen(text){
 	lokalen = eval("(" + text.responseText + ')');
 	
 	for(i=0; i<= lokalen.length -1; i++){
-	    $('lokaal').options[i] = new Option(lokalen[i].lokaalnaam);
+	    $('lokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
 	}
 }
 
