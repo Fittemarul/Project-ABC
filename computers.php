@@ -7,6 +7,15 @@ if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
 }
 
+
+function getSoftwarePackage($id){
+	$qry_package = mysql_query("SELECT naam, software FROM software WHERE id = '$id'");
+	
+	while($row = mysql_fetch_assoc($qry_package)){
+		return "- ". $row['naam']. "<br>";
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,9 +41,9 @@ if(!$is_admin){
 	<div id="overlay">
 		<h1 id="lokaalAddEdit">Computer toevoegen</h1>
 		
-			<form action="edit/addComputer.php" method="post" onsubmit="return validate.form(this);" name="nieuwComputer">
+			<form action="edit/addComputer.php" method="post" onsubmit="return verzendForm();" name="nieuwComputer">
 		
-			<label>PC naam:</label> <input type="text" name="lokaal" class="required"><br><br>
+			<label>PC naam:</label> <input type="text" name="pc_naam" class="required"><br><br>
 			
 			<label>Lokaal:</label> 
 				<select name="lokaal" id="nieuwLokaal">
@@ -43,12 +52,12 @@ if(!$is_admin){
 			
 			<br>
 			
-			<label>RAM:</label> <input type="text">MB<br>
-			<label>CPU:</label> <input type="text">GHz<br>
-			<label>HDD:</label> <input type="number">GB<br>
-			<label>GPU:</label> <input type="text"><br>
-			<label>Aankoopdatum:</label> <input type="date" id="aankoopdatum"><br>
-			<label>Netwerkkaart:</label> <input type="text"><br>
+			<label>RAM:</label> <input type="text" name="ram">MB<br>
+			<label>CPU:</label> <input type="text" name="cpu">GHz<br>
+			<label>HDD:</label> <input type="number" name="hdd">GB<br>
+			<label>GPU:</label> <input type="text" name="gpu"><br>
+			<label>Aankoopdatum:</label> <input type="date" id="aankoopdatum" name="aankoop"><br>
+			<label>Netwerkkaart:</label> <input type="text" name="nic"><br>
 			
 			<label>Leverancier:</label>
 				<select name="leverancier" id="nieuwLeverancier">
@@ -73,7 +82,7 @@ if(!$is_admin){
 			</div>
 				
 			Toevoegen:
-				<select name="softwarepakketten" id="nieuwSoftware" onchange="updateSelectSoft()">
+				<select id="nieuwSoftware" onchange="updateSelectSoft()">
 					<option value="0">Bezig met laden...</option>
 				</select>
 			<button type="button" onclick="voegSoftToe()">Voeg toe</button>
@@ -108,11 +117,10 @@ if(!$is_admin){
 			</tr>
 		
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam, software
+			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam
 			FROM inventaris a
 			INNER JOIN lokalen b ON a.lokaal_id = b.id
-			INNER JOIN leveranciers c ON a.pc_leverancier = c.id
-			INNER JOIN software d ON a.pc_software = d.id");
+			INNER JOIN leveranciers c ON a.pc_leverancier = c.id");
 			
 			
 			
@@ -121,7 +129,6 @@ if(!$is_admin){
 				// Variabelen voor edit functie in JS
 				$compID = $row['id'];
 				$compNaam = $row['pc_naam'];
-				$compLokaal = $row['lokaal_id'];
 				$compSoftware = $row['pc_software'];
 				$compType = $row['pc_type'];
 				
@@ -142,7 +149,7 @@ if(!$is_admin){
 					
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
-					echo "<td>". str_replace("\n", "<br>", $row['software']) ."</td>";
+					echo "<td>". getSoftwarePackage($row['pc_software']) ."</td>";
 				echo "</tr>";
 			}
 			
@@ -250,6 +257,21 @@ function updateSelectSoft(){
 			$('selectedSoftware').innerHTML = software[i].software;
 		}
 	}
+	
+}
+
+function verzendForm(form){
+	//
+	// Hidden input maken voor id
+	//
+	var hiddenInput = document.createElement('input');
+	hiddenInput.setAttribute('type', 'hidden');
+	hiddenInput.setAttribute('name', 'software');
+	hiddenInput.setAttribute('value', geselecteerdSoftware.join(','));
+	
+	document.nieuwWens.appendChild(hiddenInput); // element in formulier schrijven
+	
+	return validate.form(form);
 	
 }
 
