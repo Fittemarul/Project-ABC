@@ -22,7 +22,7 @@ include("conf/sessionCheck.php");
 				</li>
 			</a>
 			<br><br>
-			<h1>Leerkrachten</h1>
+			<h1>Administrators</h1>
 			
 			<a href="admWensen.php">
 				<li><img src="img/wensen.png">
