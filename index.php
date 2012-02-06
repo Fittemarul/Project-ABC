@@ -88,7 +88,7 @@
 		<form action="index.php" method="POST" onsubmit="return validateInput()">
 
 			<p style="text">Gebruikersnaam<br />
-			<input type="text" class="loginInput" name="username" id="username"></p>
+			<input type="text" class="loginInput" name="username" id="username" autocomplete="off"></p>
 
 			<p>Wachtwoord<br />
 			<input type="password" class="loginInput" name="password" id="password"></p>
