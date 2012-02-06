@@ -17,8 +17,16 @@ if(!$is_admin){
 	<script type="text/javascript" src="js/core.js"></script>
 	<script type="text/javascript" src="js/xhr.js"></script>
 	<script src="js/calendar.js" type="text/javascript" charset="utf-8"></script>
-	<link rel="stylesheet" href="calendar.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	
+
+	<style type="text/css">
+		#geselecteerdSoft{
+			float:right;
+			border-left: solid 1px #CCC;
+			padding-left: 10px;
+			width: 300px;
+			font-size:0.8em;
+		}
+	</style>
 </head>
 <body onload="calendar.set('aankoopdatum');">
 	<div id="overlay">
@@ -59,19 +67,23 @@ if(!$is_admin){
 			<br><br>
 				
 			<h1>Softwarepakketten koppelen</h1>
-			<label>Toevoegen:</label> 
-				<select name="softwarepakketten" id="nieuwSoftware">
+			<div id="geselecteerdSoft">
+				De door u geselecteerde software bevat:
+				<p id="selectedSoftware"> </p>
+			</div>
+				
+			Toevoegen:
+				<select name="softwarepakketten" id="nieuwSoftware" onchange="updateSelectSoft()">
 					<option value="0">Bezig met laden...</option>
 				</select>
-			<a href="#" onclick="addSoftware()">Voeg toe</a>
+			<button type="button" onclick="voegSoftToe()">Voeg toe</button>
 			<br>
 			
 			<ul id="gelinkteSoftware">
 			</ul>
 			
 			<br><br>
-		
-			<input type="submit" value="Opslaan" id="btnSubmit"/>
+			<center><input type="submit" value="Opslaan" id="btnSubmit"/></center>
 		
 		</form>
 	</div>
@@ -145,7 +157,8 @@ if(!$is_admin){
 	<?php include('conf/footer.php') ?>
 	
 <script type="text/javascript">
-
+var geselecteerdSoftware = new Array;
+var software; 
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
 	
@@ -177,7 +190,7 @@ function verwerkLokalen(text){
 	var lokalen = eval("(" + text.responseText + ')');
 	
 	for(i=0; i<= lokalen.length -1; i++){
-	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam);
+	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
 	}
 }
 
@@ -185,12 +198,12 @@ function verwerkLeveranciers(data){
     var leveranciers = eval("(" + data.responseText + ")"); // Parse the JSON array
     
     for(i=0; i<= leveranciers.length -1; i++){
-        $('nieuwLeverancier').options[i] = new Option(leveranciers[i].leverancier);
+        $('nieuwLeverancier').options[i] = new Option(leveranciers[i].leverancier,leveranciers[i].id);
     }
 }
 
 function verwerkSoftware(data){
-	var software = eval("(" + data.responseText + ")"); // Parse the JSON array
+	software = eval("(" + data.responseText + ")"); // Parse the JSON array
     
     for(i=0; i<= software.length -1; i++){
         $('nieuwSoftware').options[i] = new Option(software[i].softnaam, software[i].id);
@@ -200,6 +213,45 @@ function verwerkSoftware(data){
 //
 // functie die geselecteerd software pakket toevoegd aan 
 //
+
+function voegSoftToe(){
+	
+	// Welk software pakket?
+	var pakket_naam = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text;
+	var pakket_id = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].value;
+	
+	//
+	// Eerst controleren of pakket reeds werd toegevoegd
+	//
+	for(i=0; i<=geselecteerdSoftware.length -1; i++){
+		if(pakket_id == geselecteerdSoftware[i]){
+			alert("Pakket werd reeds toegevoegd aan uw selectie");
+			return; // niet verder gaan
+		}
+	}
+	
+	geselecteerdSoftware.push(pakket_id);
+	
+	// Toevoegen aan lijst
+	var parent = document.getElementById('gelinkteSoftware');
+	var nieuw = document.createElement("li");
+
+	nieuw.innerHTML = pakket_naam;
+
+	parent.appendChild(nieuw);
+	
+}
+
+// Werkt softwarelijst bij
+function updateSelectSoft(){
+	
+	for(i=0; i<= software.length -1; i++){
+		if(software[i].softnaam == $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text){
+			$('selectedSoftware').innerHTML = software[i].software;
+		}
+	}
+	
+}
 
 </script>
 </body>
