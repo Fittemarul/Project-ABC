@@ -22,7 +22,7 @@ function toggleShade(){
 	if( $('shade') == null ){
 		var shade = document.createElement('div');
 		shade.setAttribute('id', 'shade');
-		shade.setAttribute('onclick', 'toggleShade()');
+		shade.setAttribute('onclick', 'toggleShade(); calendar.hideCalendar();');
 		
 		document.body.appendChild(shade); // element in body schrijven
 	}
