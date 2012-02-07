@@ -3,10 +3,6 @@
 include("../conf/sessionCheck.php");
 include("../conf/db.php");
 
-if(!$is_admin){
-	die("U heeft geen toegang tot deze pagina");
-}
-
 $qry_lokalen = mysql_query("SELECT id, lokaal FROM lokalen ORDER BY  lokaal ASC");
 
 //
