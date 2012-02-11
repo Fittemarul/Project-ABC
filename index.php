@@ -100,7 +100,7 @@
 
 	</div>
 
-	<div id="footer">Copyright 2011, Xavier Decuyper</div>
+	<div id="footer">Copyright 2012, Xavier Decuyper</div>
 
 </body>
 </html>
