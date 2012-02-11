@@ -1,8 +1,4 @@
 <?php
-        if(strpos($GLOBALS['HTTP_USER_AGENT'], "MSIE")){
-            exit(header("Location: ieSorry.php"));
-        } 
-
 	session_start();
 
 	// Al ingelogd?
