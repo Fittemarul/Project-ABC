@@ -4,7 +4,7 @@ include("conf/sessionCheck.php");
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Project ABC</title>
+	<title>Project ABC | Deploy test </title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
 </head>
