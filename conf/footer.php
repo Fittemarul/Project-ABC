@@ -1,9 +1,6 @@
 <?php
 	// huidige revisie hash uit de git repository halen
-	$ref = file_get_contents('.git/refs/heads/master');
-	
-	// hash verkorten naar 7 karakters
-	$ref = substr($ref, 0, 7);
+	$ref = file_get_contents('http://abc.savjee.be/gitDeploy/currentBranch');
 ?>
 
 <div id="footer">Copyright 2011-2012, Xavier Decuyper<br />
