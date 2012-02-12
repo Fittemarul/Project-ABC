@@ -14,14 +14,23 @@ include("conf/sessionCheck.php");
 
 		
 		<ul id="selectieLeerkrachten">
-			<h1>Leerkrachten</h1>
+			
+		<?php
+			if(!$is_admin) // gebruiker is GEEN administrator
+			{
+		?>
+			<h1>Leerkracht</h1>
 
 			<a href="wensen.php">
 				<li><img src="img/pencil.png">
 					Wensen invoeren
 				</li>
 			</a>
-			<br><br>
+		<?php
+			} // einde if GEEN admin
+			if($is_admin) // gebruiker IS admin
+			{
+		?>
 			<h1>Administrators</h1>
 			
 			<a href="admWensen.php">
@@ -65,7 +74,9 @@ include("conf/sessionCheck.php");
 					Maak backup
 				</li>
 			</a>
-			
+		<?php
+			} // einde if Admin
+		?>
 		</ul>
 
 		<div id="clear"> </div>
