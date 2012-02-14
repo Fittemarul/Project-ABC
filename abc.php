@@ -33,6 +33,12 @@ include("conf/sessionCheck.php");
 		?>
 			<h1>Administrators</h1>
 			
+			<a href="wensen.php">
+				<li><img src="img/pencil.png">
+					Wensen invoeren
+				</li>
+			</a>
+			
 			<a href="admWensen.php">
 				<li><img src="img/wensen.png">
 					Wensen bekijken
