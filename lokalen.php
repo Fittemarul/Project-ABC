@@ -12,6 +12,8 @@ if(!$is_admin){
 <head>
 	<title>Project ABC</title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
+	<link rel="icon" href="img/favicon.ico">
+	
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
 	

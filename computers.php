@@ -10,7 +10,7 @@ if(!$is_admin){
 
 function getSoftwarePackage($id){
 	$qry_package = mysql_query("SELECT naam, software FROM software WHERE id = '$id'");
-	
+
 	while($row = mysql_fetch_assoc($qry_package)){
 		return "- ". $row['naam']. "<br>";
 	}
@@ -22,6 +22,8 @@ function getSoftwarePackage($id){
 <head>
 	<title>Project ABC</title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
+	<link rel="icon" href="img/favicon.ico">
+
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
 	<script type="text/javascript" src="js/xhr.js"></script>
@@ -40,65 +42,65 @@ function getSoftwarePackage($id){
 <body onload="calendar.set('aankoopdatum');">
 	<div id="overlay">
 		<h1 id="lokaalAddEdit">Computer toevoegen</h1>
-		
+
 			<form action="edit/addComputer.php" method="post" onsubmit="return verzendForm();" name="nieuwComputer">
-		
+
 			<label>PC naam:</label> <input type="text" name="pc_naam" class="required"><br><br>
-			
-			<label>Lokaal:</label> 
+
+			<label>Lokaal:</label>
 				<select name="lokaal" id="nieuwLokaal">
 				  <option value="0">Bezig met laden...</option>
 				</select>
-			
+
 			<br>
-			
+
 			<label>RAM:</label> <input type="text" name="ram">MB<br>
 			<label>CPU:</label> <input type="text" name="cpu">GHz<br>
 			<label>HDD:</label> <input type="number" name="hdd">GB<br>
 			<label>GPU:</label> <input type="text" name="gpu"><br>
 			<label>Aankoopdatum:</label> <input type="date" id="aankoopdatum" name="aankoop"><br>
 			<label>Netwerkkaart:</label> <input type="text" name="nic"><br>
-			
+
 			<label>Leverancier:</label>
 				<select name="leverancier" id="nieuwLeverancier">
 					<option value="0">Bezig met laden...</option>
 				</select>
-                        
+
             <br>
-			
-			
+
+
 			<label>Type:</label>
 				<select name="pc_type">
 				  <option value="0">Vaste computer</option>
 				  <option value="1">Laptop</option>
 				</select>
-			
+
 			<br><br>
-				
+
 			<h1>Softwarepakketten koppelen</h1>
 			<div id="geselecteerdSoft">
 				De door u geselecteerde software bevat:
 				<p id="selectedSoftware"> </p>
 			</div>
-				
+
 			Toevoegen:
 				<select id="nieuwSoftware" onchange="updateSelectSoft()">
 					<option value="0">Bezig met laden...</option>
 				</select>
 			<button type="button" onclick="voegSoftToe()">Voeg toe</button>
 			<br>
-			
+
 			<ul id="gelinkteSoftware">
 			</ul>
-			
+
 			<br><br>
 			<center><input type="submit" value="Opslaan" id="btnSubmit"/></center>
-		
+
 		</form>
 	</div>
-	
+
 	<div id="appBox">
-		
+
 		<?php include('conf/header.php') ?>
 
 		<h1>Computer inventaris</h1>
@@ -115,60 +117,60 @@ function getSoftwarePackage($id){
 				<th width="15%">Leverancier</th>
 				<th width="35%">Software</th>
 			</tr>
-		
+
 		<?php
 			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam
 			FROM inventaris a
 			INNER JOIN lokalen b ON a.lokaal_id = b.id
 			INNER JOIN leveranciers c ON a.pc_leverancier = c.id");
-			
-			
-			
-			
+
+
+
+
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				// Variabelen voor edit functie in JS
 				$compID = $row['id'];
 				$compNaam = $row['pc_naam'];
 				$compSoftware = $row['pc_software'];
 				$compType = $row['pc_type'];
-				
+
 				echo "<tr>";
-				
+
 					echo "<td style='text-align:center' class='noSelect'>-</td>";
-							
+
 					echo "<td>$compNaam</td>";
 					echo "<td>". $row['pc_ram'] ."</td>";
 					echo "<td>". $row['pc_cpu'] ."</td>";
 					echo "<td>". $row['pc_hdd'] ."</td>";
-					
+
 					if($compType == "0"){
 						echo "<td>Vast</td>";
 					}else{
 						echo "<td>Laptop</td>";
 					}
-					
+
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
 					echo "<td>". getSoftwarePackage($row['pc_software']) ."</td>";
 				echo "</tr>";
 			}
-			
-		
+
+
 		?>
-		
+
 		</table>
 
 		<div id="clear"> </div>
 	</div>
-	
+
 	<?php include('conf/footer.php') ?>
-	
+
 <script type="text/javascript">
 var geselecteerdSoftware = new Array;
-var software; 
+var software;
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
-	
+
 	if(msg){
 		window.location = "edit/deleteLokaal.php?id=" + a;
 	}else{
@@ -181,21 +183,21 @@ function confirmDelete(a){
 //
 function addComputer(){
 	toggleShade(); // Bewerk overlay tonen
-	
+
 	// Lokalen via AJAX ophalen van server
 	xhr("ajax/lokalen.php", verwerkLokalen);
-	
+
 	// Leveranciers via AJAX ophalen van server
     xhr("ajax/leveranciers.php", verwerkLeveranciers);
 
 	// Softwarepakketten ophalen
 	xhr("ajax/software.php", verwerkSoftware);
-	
+
 }
 
 function verwerkLokalen(text){
 	var lokalen = eval("(" + text.responseText + ')');
-	
+
 	for(i=0; i<= lokalen.length -1; i++){
 	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
 	}
@@ -203,7 +205,7 @@ function verwerkLokalen(text){
 
 function verwerkLeveranciers(data){
     var leveranciers = eval("(" + data.responseText + ")"); // Parse the JSON array
-    
+
     for(i=0; i<= leveranciers.length -1; i++){
         $('nieuwLeverancier').options[i] = new Option(leveranciers[i].leverancier,leveranciers[i].id);
     }
@@ -211,22 +213,22 @@ function verwerkLeveranciers(data){
 
 function verwerkSoftware(data){
 	software = eval("(" + data.responseText + ")"); // Parse the JSON array
-    
+
     for(i=0; i<= software.length -1; i++){
         $('nieuwSoftware').options[i] = new Option(software[i].softnaam, software[i].id);
     }
 }
 
 //
-// functie die geselecteerd software pakket toevoegd aan 
+// functie die geselecteerd software pakket toevoegd aan
 //
 
 function voegSoftToe(){
-	
+
 	// Welk software pakket?
 	var pakket_naam = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text;
 	var pakket_id = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].value;
-	
+
 	//
 	// Eerst controleren of pakket reeds werd toegevoegd
 	//
@@ -236,9 +238,9 @@ function voegSoftToe(){
 			return; // niet verder gaan
 		}
 	}
-	
+
 	geselecteerdSoftware.push(pakket_id);
-	
+
 	// Toevoegen aan lijst
 	var parent = document.getElementById('gelinkteSoftware');
 	var nieuw = document.createElement("li");
@@ -246,18 +248,18 @@ function voegSoftToe(){
 	nieuw.innerHTML = pakket_naam;
 
 	parent.appendChild(nieuw);
-	
+
 }
 
 // Werkt softwarelijst bij
 function updateSelectSoft(){
-	
+
 	for(i=0; i<= software.length -1; i++){
 		if(software[i].softnaam == $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text){
 			$('selectedSoftware').innerHTML = software[i].software;
 		}
 	}
-	
+
 }
 
 function verzendForm(form){
@@ -268,11 +270,11 @@ function verzendForm(form){
 	hiddenInput.setAttribute('type', 'hidden');
 	hiddenInput.setAttribute('name', 'software');
 	hiddenInput.setAttribute('value', geselecteerdSoftware.join(','));
-	
+
 	document.nieuwWens.appendChild(hiddenInput); // element in formulier schrijven
-	
+
 	return validate.form(form);
-	
+
 }
 
 </script>

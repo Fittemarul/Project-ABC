@@ -12,8 +12,10 @@ if(!$is_admin){
 <html>
 <head>
 	<title>Project ABC</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
+	<link rel="icon" href="img/favicon.ico">
+	
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
 </head>
