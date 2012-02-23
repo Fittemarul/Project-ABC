@@ -3,6 +3,6 @@
 	$ref = file_get_contents('http://abc.savjee.be/gitDeploy/currentBranch');
 ?>
 
-<div id="footer">Copyright 2011-2012, Xavier Decuyper<br />
+<div id="footer">Copyright 2012, Xavier Decuyper<br />
 	<span style="font-family:courier">Ref: <?php echo $ref ?></span>
 </div>
