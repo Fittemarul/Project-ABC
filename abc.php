@@ -81,6 +81,12 @@ include("conf/sessionCheck.php");
 					Maak backup
 				</li>
 			</a>
+
+			<a href="deployer.php">
+				<li><img src="img/deployer.png">
+					Deployer log
+				</li>
+			</a>
 		<?php
 			} // einde if Admin
 		?>
