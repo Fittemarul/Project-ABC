@@ -1,7 +1,7 @@
 body {
 	background-color: #E7E7E7;
 	color: #777;
-	margin: 30px auto 0 auto;
+	margin: 0 auto 0 auto;
 	width: 1000px;
 	padding: 30px;
 	font-family: Georgia;
@@ -206,7 +206,7 @@ img{
 	padding:0 5px;
 	margin-left:-5px;
 	font-weight:bold;
-} 
+}
 .calendar-box .selected a {
 	padding:0 5px;
 	margin-left:-5px;
