@@ -1,5 +1,9 @@
 <?php
 include("conf/sessionCheck.php");
+
+if(!$is_admin){
+	die("U heeft geen toegang tot deze pagina");
+}
 ?>
 <!DOCTYPE html>
 <html>
