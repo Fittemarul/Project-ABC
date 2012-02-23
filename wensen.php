@@ -69,7 +69,7 @@ include("conf/sessionCheck.php");
 		<br>
 
 		<h1>Gewenste softwarepakketten:</h1>
-		<ul id="gewensteSoftware">
+		<ul id="gewensteSoftware" >
 		</ul>
 
 
@@ -143,7 +143,9 @@ function voegSoftToe(){
 	var parent = document.getElementById('gewensteSoftware');
 	var nieuw = document.createElement("li");
 
-	nieuw.innerHTML = pakket_naam;
+	nieuw.innerHTML = '<a href="javascript:void(0);"onclick="removeMe(this);geselecteerdSoftware.remove(\''+ pakket_id +'\')">'+
+						'<img src="img/delete.png" title="Verwijder softwarepakket"></a> ' +
+						pakket_naam;
 
 	parent.appendChild(nieuw);
 

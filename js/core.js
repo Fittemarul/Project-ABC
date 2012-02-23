@@ -75,3 +75,26 @@ function toggleSubmitbtn(formName){
 		}
 	}
 }
+
+//
+// Prototype functie die werkt voor alle arrays. Verwijderd array item met specifieke waarde
+// @source		http://stackoverflow.com/questions/3954438/remove-item-from-array-by-value
+//
+Array.prototype.remove = function(){
+    var what, a= arguments, L= a.length, ax;
+    while(L && this.length){
+        what= a[--L];
+        while((ax= this.indexOf(what))!= -1){
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+}
+
+//
+// Removes a li from an UL
+// @source		http://stackoverflow.com/questions/4417164/remove-li-directly-by-an-onclick
+//
+function removeMe(link) {
+    link.parentNode.parentNode.removeChild(link.parentNode);
+}
