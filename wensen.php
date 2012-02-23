@@ -69,7 +69,7 @@ include("conf/sessionCheck.php");
 		<br>
 
 		<h1>Gewenste softwarepakketten:</h1>
-		<ul id="gewensteSoftware" >
+		<ul id="gewensteSoftware" style="padding:5px; list-style-type:none;">
 		</ul>
 
 
