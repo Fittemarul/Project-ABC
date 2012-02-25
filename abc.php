@@ -14,12 +14,11 @@ include("conf/sessionCheck.php");
 		<?php include('conf/header.php') ?>
 
 
+	<?php
+		if(!$is_admin){ // gebruiker is GEEN administrator
+	?>
+	<div style="margin:0 auto; width:480px">
 		<ul id="selectieLeerkrachten">
-
-		<?php
-			if(!$is_admin) // gebruiker is GEEN administrator
-			{
-		?>
 			<h1>Leerkracht</h1>
 
 			<a href="wensen.php">
@@ -27,12 +26,15 @@ include("conf/sessionCheck.php");
 					Wensen invoeren
 				</li>
 			</a>
-		<?php
-			} // einde if GEEN admin
-			if($is_admin) // gebruiker IS admin
-			{
-		?>
-			<h1>Administrators</h1>
+		</ul>
+	</div>
+	<?php
+		} // einde if GEEN admin
+		if($is_admin){ // gebruiker IS admin
+	?>
+	<div style="width: 480px; float:left;">
+		<ul id="selectieLeerkrachten">
+			<h1>Administratie</h1>
 
 			<a href="wensen.php">
 				<li><img src="img/pencil.png">
@@ -75,7 +77,12 @@ include("conf/sessionCheck.php");
 					Leveranciers beheren
 				</li>
 			</a>
+		</ul>
+	</div>
 
+	<div style="width:480px; float:right">
+		<ul id="selectieLeerkrachten" style="">
+			<h1>Tools</h1>
 			<a href="backup.php">
 				<li><img src="img/backup.png">
 					Maak backup
@@ -87,14 +94,15 @@ include("conf/sessionCheck.php");
 					Deployer log
 				</li>
 			</a>
+		</ul>
+	</div>
 		<?php
 			} // einde if Admin
 		?>
-		</ul>
 
-		<div id="clear"> </div>
-	</div>
+	<div id="clear"> </div>
+</div>
 
-	<?php include('conf/footer.php') ?>
+<?php include('conf/footer.php') ?>
 </body>
 </html>

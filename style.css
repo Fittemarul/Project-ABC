@@ -80,19 +80,22 @@ input[type=text], input[type=password], textarea, input[type=date], input[type=n
 #selectieLeerkrachten {
 	list-style-type: none;
 	width: 400px;
-	margin: 0 auto 50px auto;
 }
 
+#selectieLeerkrachten ul {
+	margin:0;
+	padding:0;
+}
 #selectieLeerkrachten li {
 	display: block;
 	padding: 5px;
 	font-size: 1.2em;
 	margin-top: 10px;
 	border: solid 1px #CECECE;
-	width: 400px;
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
+
 }
 
 #selectieLeerkrachten li:hover {
