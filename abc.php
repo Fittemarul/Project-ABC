@@ -83,6 +83,12 @@ include("conf/sessionCheck.php");
 	<div style="width:480px; float:right">
 		<ul class="selectieMenu">
 			<h1>Tools</h1>
+			<a href="importUsers.php">
+				<li><img src="img/users_import.png">
+					Leerkrachten importeren
+				</li>
+			</a>
+
 			<a href="backup.php">
 				<li><img src="img/backup.png">
 					Maak backup
