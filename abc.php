@@ -18,7 +18,7 @@ include("conf/sessionCheck.php");
 		if(!$is_admin){ // gebruiker is GEEN administrator
 	?>
 	<div style="margin:0 auto; width:480px">
-		<ul id="selectieLeerkrachten">
+		<ul class="selectieMenu">
 			<h1>Leerkracht</h1>
 
 			<a href="wensen.php">
@@ -33,7 +33,7 @@ include("conf/sessionCheck.php");
 		if($is_admin){ // gebruiker IS admin
 	?>
 	<div style="width: 480px; float:left;">
-		<ul id="selectieLeerkrachten">
+		<ul class="selectieMenu">
 			<h1>Administratie</h1>
 
 			<a href="wensen.php">
@@ -81,7 +81,7 @@ include("conf/sessionCheck.php");
 	</div>
 
 	<div style="width:480px; float:right">
-		<ul id="selectieLeerkrachten" style="">
+		<ul class="selectieMenu">
 			<h1>Tools</h1>
 			<a href="backup.php">
 				<li><img src="img/backup.png">

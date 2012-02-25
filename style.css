@@ -77,16 +77,16 @@ input[type=text], input[type=password], textarea, input[type=date], input[type=n
 	clear: both;
 }
 
-#selectieLeerkrachten {
+.selectieMenu {
 	list-style-type: none;
 	width: 400px;
 }
 
-#selectieLeerkrachten ul {
+.selectieMenu ul {
 	margin:0;
 	padding:0;
 }
-#selectieLeerkrachten li {
+.selectieMenu li {
 	display: block;
 	padding: 5px;
 	font-size: 1.2em;
@@ -98,12 +98,12 @@ input[type=text], input[type=password], textarea, input[type=date], input[type=n
 
 }
 
-#selectieLeerkrachten li:hover {
+.selectieMenu li:hover {
 	background-color: #CECECE;
 	border: solid 1px #777;
 }
 
-#selectieLeerkrachten a {
+.selectieMenu a {
 	text-decoration: none;
 }
 
