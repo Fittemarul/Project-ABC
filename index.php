@@ -47,7 +47,7 @@
 
 		}else{ // Verkeerde gegevens
 
-			echo "<span class='error'>Gebruikersnaam en/of wachtwoord verkeerd.</span>";
+			echo "<div class='error' style='margin:0 auto;'>Gebruikersnaam en/of wachtwoord verkeerd.</div>";
 
 		}
 
