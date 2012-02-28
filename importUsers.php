@@ -1,6 +1,5 @@
 <?php
 
-include("conf/db.php");
 include("conf/sessionCheck.php");
 
 if(!$is_admin){
