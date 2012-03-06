@@ -15,35 +15,50 @@
 
 		$password = sha1($_POST['password']); // wachtwoord direct hashen
 
-		$qry_check = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND userpass = '$password' AND active = '1'");
+		$qry_check = mysql_query("SELECT is_admin, active FROM users WHERE username = '$username' AND userpass = '$password'");
 
 
 		//
 		// Controleren of er slechts 1 record overeenkomt met de eisen
 		//
 		if(mysql_num_rows($qry_check) == 1){
-			$_SESSION['username'] = $username; // Sessie met username opslaan
 
 			//
-			// Is deze gebruiker een administrator?
+			// Info over gebruiker uit db halen
 			//
-			$admin_check = mysql_fetch_row($qry_check);
+			$row = mysql_fetch_row($qry_check);
 
-			if($admin_check[0] == "1"){
-				$_SESSION['is_admin'] = true;
+			//
+			// Is deze gebruiker actief?
+			//
+			if($row[1] == '0'){
+				echo "<div class='warning' style='margin:0 auto;'>Deze account is niet meer actief</div>";
 			}else{
-				$_SESSION['is_admin'] = false;
+
+				$_SESSION['username'] = $username; // Sessie met username opslaan
+
+
+				//
+				// Is deze gebruiker een administrator?
+				//
+
+				if($row[0] == "1"){
+					$_SESSION['is_admin'] = true;
+				}else{
+					$_SESSION['is_admin'] = false;
+				}
+
+				//
+				// Huidig tijdstip noteren als laatst ingelogd
+				//
+				$qry_lastlogon = mysql_query("UPDATE  users SET  time_lastlogon =  CURRENT_TIMESTAMP WHERE  username = '$username' LIMIT 1") or die(mysql_error());
+
+				//
+				// Alles in orde, gebruiker mag doorgaan!
+				//
+				header("Location: abc.php");
+
 			}
-
-			//
-			// Huidig tijdstip noteren als laatst ingelogd
-			//
-			$qry_lastlogon = mysql_query("UPDATE  users SET  time_lastlogon =  CURRENT_TIMESTAMP WHERE  username = '$username' LIMIT 1") or die(mysql_error());
-
-			//
-			// Alles in orde, gebruiker mag doorgaan!
-			//
-			header("Location: abc.php");
 
 		}else{ // Verkeerde gegevens
 
