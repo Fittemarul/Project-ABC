@@ -77,6 +77,12 @@ include("conf/sessionCheck.php");
 					Leveranciers beheren
 				</li>
 			</a>
+
+			<a href="images.php">
+				<li><img src="img/images.png">
+					Images beheren
+				</li>
+			</a>
 		</ul>
 	</div>
 

@@ -171,6 +171,14 @@ img{
 	border:0;
 }
 
+#geselecteerdSoft{
+	float:right;
+	border-left: solid 1px #CCC;
+	padding-left: 10px;
+	width: 300px;
+	font-size:0.8em;
+}
+
 /* **************************************************
 		STIJL VOOR KALENDER
    ************************************************** */

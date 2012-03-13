@@ -3,6 +3,10 @@
 include("conf/db.php");
 include("conf/sessionCheck.php");
 
+if(!$is_admin){
+	die("U heeft geen toegang tot deze pagina");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,38 +16,29 @@ include("conf/sessionCheck.php");
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 	<link rel="icon" href="img/favicon.ico">
 
+	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
 	<script type="text/javascript" src="js/xhr.js"></script>
+
 </head>
 <body>
-	<div id="appBox">
+	<div id="overlay">
+		<h1 id="softwareEditAdd">Nieuwe image toevoegen</h1>
 
-		<?php include('conf/header.php') ?>
-
-
-		<h1>Wensen invullen</h1>
-
-		<div id="geselecteerdSoft">
+		<div id="geselecteerdSoft" style="height:300px; overflow:scroll">
 			<p style="font-weight:bold">Het door u geselecteerde softwarepakket bevat:</p>
 			<p id="selectedSoftware"> </p>
 		</div>
 
 		<!-- Linkse DIV -->
 		<div style="width: 660px">
-			<form action="edit/addWensen.php" method="post" onsubmit="return verzendForm(this);" name="nieuwWens">
+			<form action="edit/addImage.php" method="post" onsubmit="return verzendForm(this);" name="nieuwImage">
 
-				<label>Klas:</label> <input type="text" name="klas" class="required"> (bv: 6IB)<br>
-				<label>Vak:</label>	<input type="text" name="vak" class="required"> (bv: Engels)<br>
-				<label>Aantal uren:</label> <input type="number" name="uren" class="required"> (bv: 4)<br>
-
-				<label>Gewenst lokaal:</label>
-					<select name="lokaal" id="lokaal">
-				  		<option value="0">Bezig met laden...</option>
-					</select>
+				Image naam: <input type="text" name="image_naam" class="required">
 
 				<br><br>
 
-				<label>Gewenste software:</label>
+				<label>Koppel softwarepakket:</label>
 
 				<select id="software" onchange="updateSelectSoft()">
 			  		<option value="0">Bezig met laden...</option>
@@ -51,24 +46,39 @@ include("conf/sessionCheck.php");
 
 				<button type="button" onclick="voegSoftToe()">Voeg toe</button>
 
-				<input type="submit" value="Wensen indienen"/>
+				<br><br>
+				<input type="submit" value="Opslaan" id="btnSubmit"/>
 
 			</form>
 		</div>
 
-		<div id="clear"> </div>
-		<br>
+		<div style="clear:both"> </div>
 
-		<h1>Gewenste softwarepakketten:</h1>
+		<h1>Gekoppelde softwarepakketten:</h1>
 		<ul id="gewensteSoftware" style="padding:5px; list-style-type:none;">
 		</ul>
+	</div>
 
+	<div id="appBox">
 
+		<?php include('conf/header.php') ?>
 
+		<h1>Images beheren</h1>
+		<p><a href="#" onclick="toggleShade()"><img src="img/image_add.png"> Nieuwe image toevoegen</a></p>
+		<table class="sortable" width="100%">
+			<tr class="noSelect">
+				<th width="10%" class="sorttable_nosort">Opties</th>
+				<th width="20%">Pakketnaam</th>
+				<th width="70%">Software</th>
+			</tr>
 
+		</table>
+
+		<div id="clear"> </div>
 	</div>
 
 	<?php include('conf/footer.php') ?>
+
 
 <script type="text/javascript">
 // Variabelen die later voor de hele pagina nodig zijn:
@@ -76,20 +86,8 @@ var lokalen;
 var software;
 var geselecteerdSoftware = new Array();
 
-//onload: Lokalen via AJAX ophalen van server
-xhr("ajax/lokalen.php", verwerkLokalen);
-
 //onload: Softwarepakketten via AJAX ophalen
 xhr("ajax/software.php", verwerkSoftware);
-
-
-function verwerkLokalen(text){
-	lokalen = eval("(" + text.responseText + ')');
-
-	for(i=0; i<= lokalen.length -1; i++){
-	    $('lokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
-	}
-}
 
 function verwerkSoftware(text){
 	software = eval("(" + text.responseText + ')');
@@ -151,7 +149,7 @@ function verzendForm(form){
 	hiddenInput.setAttribute('name', 'software');
 	hiddenInput.setAttribute('value', geselecteerdSoftware.join(','));
 
-	document.nieuwWens.appendChild(hiddenInput); // element in formulier schrijven
+	document.nieuwImage.appendChild(hiddenInput); // element in formulier schrijven
 
 	return validate.form(form);
 
