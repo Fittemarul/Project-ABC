@@ -2,18 +2,13 @@
 
 include("conf/db.php");
 include("conf/sessionCheck.php");
+include("conf/functions.php"); // voor functie getSoftwarePackage
+
 
 if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
 }
 
-function getSoftwarePackage($id){
-	$qry_package = mysql_query("SELECT naam, software FROM software WHERE id = '$id'");
-
-	while($row = mysql_fetch_assoc($qry_package)){
-		return "- ". $row['naam']. "<br>";
-	}
-}
 
 
 ?>
