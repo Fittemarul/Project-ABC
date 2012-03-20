@@ -2,6 +2,7 @@
 
 include("conf/db.php");
 include("conf/sessionCheck.php");
+include("conf/functions.php");
 
 if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
@@ -71,6 +72,33 @@ if(!$is_admin){
 				<th width="20%">Pakketnaam</th>
 				<th width="70%">Software</th>
 			</tr>
+
+			<?php
+				$qry_wensen = mysql_query("SELECT *	FROM images LIMIT 250");
+
+
+				while($row = mysql_fetch_assoc($qry_wensen)){
+					// Variabelen voor edit functie in JS
+					$id = $row['id'];
+					$image_naam = $row['image_naam'];
+
+
+					$software = explode(",", $row['image_software']);
+					$software_html = "";
+
+					for($i=0; $i<= count($software)-1; $i++){
+						$software_html .= getSoftwarePackage($software[$i]);
+					}
+
+					echo "<tr>";
+						echo "<td> - </td>";
+						echo "<td>$image_naam</td>";
+						echo "<td>$software_html</td>";
+					echo "</tr>";
+				}
+
+
+			?>
 
 		</table>
 
