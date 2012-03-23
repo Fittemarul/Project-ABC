@@ -29,18 +29,19 @@ if(!$is_admin){
 
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
-				<th width="70px">Opties</th>
-				<th width="170px">Datum</th>
+				<th width="30px"> </th>
+				<th width="100px">Datum</th>
 				<th width="100px">Leerkracht</th>
 				<th>Vak</th>
 				<th>Klas</th>
 				<th>Uren</th>
 				<th>Lokaal</th>
 				<th>Software</th>
+				<th>Notities</th>
 			</tr>
 
 		<?php
-			$qry_wensen = mysql_query("SELECT a.id, a.date, a.leerkracht, a.vak, a.klas, a.uren, a.software, b.lokaal
+			$qry_wensen = mysql_query("SELECT a.id, a.date, a.leerkracht, a.vak, a.klas, a.uren, a.software, a.notes, b.lokaal
 										FROM wensen a
 										INNER JOIN lokalen b ON a.lokaal = b.id");
 
@@ -54,6 +55,7 @@ if(!$is_admin){
 				$klas = $row['klas'];
 				$uren = $row['uren'];
 				$lokaal = $row['lokaal'];
+				$notes = $row['notes'];
 
 				$software = explode(",", $row['software']);
 				$software_html = "";
@@ -61,6 +63,12 @@ if(!$is_admin){
 				for($i=0; $i<= count($software)-1; $i++){
 					$software_html .= getSoftwarePackage($software[$i]);
 				}
+
+				//
+				// Not showing time
+				//
+				$date = explode(" ", $date);
+				$date = $date[0];
 
 				echo "<tr>";
 					echo "<td>".
@@ -74,6 +82,7 @@ if(!$is_admin){
 					echo "<td>$uren</td>";
 					echo "<td>$lokaal</td>";
 					echo "<td>$software_html</td>";
+					echo "<td>$notes</td>";
 
 				echo "</tr>";
 			}

@@ -7,10 +7,12 @@ $vak = mysql_real_escape_string( $_POST['vak'] );
 $uren = mysql_real_escape_string( $_POST['uren'] );
 $lokaal = mysql_real_escape_string( $_POST['lokaal'] );
 $software = mysql_real_escape_string( $_POST['software'] );
+$notes = mysql_real_escape_string( $_POST['notes'] );
+
 $leerkracht = mysql_real_escape_string($username); // huidige gebruiker
 
-$qry_insert = mysql_query("INSERT INTO wensen (`date`, `leerkracht`, `vak`, `klas`, `uren`, `lokaal`, `software`) 
-							VALUES (NOW(), '$leerkracht', '$vak', '$klas',  '$uren', '$lokaal', '$software')") or die(mysql_error());
+$qry_insert = mysql_query("INSERT INTO wensen (`date`, `leerkracht`, `vak`, `klas`, `uren`, `lokaal`, `software`, `notes`)
+							VALUES (NOW(), '$leerkracht', '$vak', '$klas',  '$uren', '$lokaal', '$software', '$notes')") or die(mysql_error());
 
 if(!$qry_insert){
 	echo "Oops. Uw wens kon niet bewaard worden.";
