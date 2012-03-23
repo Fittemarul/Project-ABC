@@ -29,6 +29,7 @@ if(!$is_admin){
 
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
+				<th width="70px">Opties</th>
 				<th width="170px">Datum</th>
 				<th width="100px">Leerkracht</th>
 				<th>Vak</th>
@@ -39,13 +40,14 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_wensen = mysql_query("SELECT a.date, a.leerkracht, a.vak, a.klas, a.uren, a.software, b.lokaal
+			$qry_wensen = mysql_query("SELECT a.id, a.date, a.leerkracht, a.vak, a.klas, a.uren, a.software, b.lokaal
 										FROM wensen a
 										INNER JOIN lokalen b ON a.lokaal = b.id");
 
 
 			while($row = mysql_fetch_assoc($qry_wensen)){
 				// Variabelen voor edit functie in JS
+				$id = $row['id'];
 				$date = $row['date'];
 				$leerkracht = $row['leerkracht'];
 				$vak = $row['vak'];
@@ -61,6 +63,10 @@ if(!$is_admin){
 				}
 
 				echo "<tr>";
+					echo "<td>".
+						"<a href='#' onclick='deleteWish($id)'>".
+							"<img src='img/delete.png' title='Wens verwijderen'></a> ".
+						"</td>";
 					echo "<td>$date</td>";
 					echo "<td>$leerkracht</td>";
 					echo "<td>$vak</td>";
@@ -122,8 +128,21 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	document.nieuwLokaal.appendChild(hiddenInput); // element in formulier schrijven
 
 	document.nieuwLokaal.action = "edit/editLokaal.php";
-
 }
+
+//
+// Functie voor het verwijderen van een wens
+//
+function deleteWish(id){
+	var msg = confirm("Bent u zeker dat u deze wens wilt verwijderen?\n(Actie onomkeerbaar)");
+
+	if(msg){
+		window.location = "edit/deleteWish.php?id=" + id;
+	}else{
+		return false
+	}
+}
+
 </script>
 </body>
 </html>
