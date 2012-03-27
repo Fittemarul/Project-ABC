@@ -1,6 +1,6 @@
 <?php
-include("conf/db.php");
-include("conf/sessionCheck.php");
+include("../conf/db.php");
+include("../conf/sessionCheck.php");
 
 if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
@@ -51,23 +51,17 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
 		$error = mysql_errno($link);
 
 		if($error == "1062"){
-			
-			$qry_isAdmin = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND is_admin = '1'");
-			
-			if(mysql_num_rows($qry_isAdmin) == 1){
-				$qry_bijwerken = mysql_query("UPDATE users SET userpass = '$pass' WHERE username='$username' ")
-			}
-			
+
 			echo "<br> Gebruiker $username bestaat al! Niet geimporteerd.";
 			continue;
-			
+
 		}
 		else{
 			die("Er heeft zich een fout voorgedaan.");
 		}
 	}
 
-	echo "<br>Gebruiker $username toegevoegd.";
+	echo "<br>&bull; Gebruiker $username toegevoegd.";
 }
 
 /*
@@ -95,7 +89,7 @@ for($i = 0; $i<= count($rijen) -1; $i++){
 }*/
 
 echo "<br><br> Importeren voltooid.<br>";
-echo "<a href='abc.php'>Klik hier om terug te keren</a><br>";
-echo "<a href='gebruikers.php'>Klik hier om de gebruikers te bekijken.</a>";
+echo "<a href='../abc.php'>Klik hier om terug te keren</a><br>";
+echo "<a href='../gebruikers.php'>Klik hier om de gebruikers te bekijken.</a>";
 
 ?>

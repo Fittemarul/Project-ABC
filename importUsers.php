@@ -45,7 +45,7 @@ if(!$is_admin){
 		<br><br>
 
 		<h1>CSV importeren</h1>
-		<form action="uploadCSV.php" method="post" enctype="multipart/form-data">
+		<form action="edit/uploadCSV.php" method="post" enctype="multipart/form-data">
 
 			<p>CSV bestand: <input name="file" type="file" size="35" /></p>
 			<input type="submit" name="Submit" value="Upload" />
