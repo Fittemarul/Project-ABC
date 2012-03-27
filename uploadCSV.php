@@ -41,24 +41,28 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
 	// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
 	// dit is geen gebruiker en mag dus niet geimporteerd worden!
 	//
-	if($line == "" || $line == " ")
-	{
+	if($line == "" || $line == " "){
 		continue;
 	}
 
 	$qry_insert = mysql_query("INSERT INTO users (username, userpass, time_lastlogon, is_admin, active) VALUES ('$username', '$pass', '0000-00-00 00:00:00', '0', '1')");
 
-	if(!$qry_insert)
-	{
+	if(!$qry_insert){
 		$error = mysql_errno($link);
 
-		if($error == "1062")
-		{
+		if($error == "1062"){
+			
+			$qry_isAdmin = mysql_query("SELECT is_admin FROM users WHERE username = '$username' AND is_admin = '1'");
+			
+			if(mysql_num_rows($qry_isAdmin) == 1){
+				$qry_bijwerken = mysql_query("UPDATE users SET userpass = '$pass' WHERE username='$username' ")
+			}
+			
 			echo "<br> Gebruiker $username bestaat al! Niet geimporteerd.";
 			continue;
+			
 		}
-		else
-		{
+		else{
 			die("Er heeft zich een fout voorgedaan.");
 		}
 	}

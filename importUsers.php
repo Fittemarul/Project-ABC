@@ -20,15 +20,31 @@ if(!$is_admin){
 
 		<?php include('conf/header.php') ?>
 
-		<h1>Leerkrachten importeren</h1>
+		<h1>OPGELET!</h1>
 
 		<div class="warning">
 			OPGELET! Het CSV bestand dat u upload moet de juiste structuur zijn!<br />
-			In de eerste kolom moet de gebruikersnaam staan (maximum 3 karakters lang).<br />
-			In de tweede kolom moet het wachtwoord van de gebruiker staan. (Geen beperking)<br><br>
-			De velden moeten gescheiden zijn door een puntkomma.
+			<ul>
+				<li>In de eerste kolom moet de gebruikersnaam staan (maximum 3 karakters lang)</li>
+				<li>In de tweede kolom moet het wachtwoord van de gebruiker staan. (Geen beperking)</li>
+				<li>De velden moeten gescheiden zijn door een puntkomma</li>
+			</ul>
 		</div>
 
+		<div class="info">
+			Accounts worden NIET overschreven. Gebruik eerst de wis functie om alle leerkrachten accounts te verwijderen.<br />
+			Nadien kan de CSV geimporteerd worden.
+		</div>
+
+		<br>
+
+		<h1>Gebruikers wissen</h1>
+		<p>Met deze functie verwijderd u ALLE niet-administrator accounts. Deze actie is onomkeerbaar!</p>
+		<button onclick="return confirmDelete()">Accounts verwijderen</button>
+
+		<br><br>
+
+		<h1>CSV importeren</h1>
 		<form action="uploadCSV.php" method="post" enctype="multipart/form-data">
 
 			<p>CSV bestand: <input name="file" type="file" size="35" /></p>
@@ -36,12 +52,18 @@ if(!$is_admin){
 
 		</form>
 
+
 		<div id="clear"> </div>
 	</div>
 
 	<?php include('conf/footer.php') ?>
-
 <script type="text/javascript">
+function confirmDelete(){
+	var answer = confirm("Bent u zeker dat u alle leerkrachten account wilt wissen? Deze actie is onomkeerbaar!");
+	if(answer){
+		window.location = "edit/removeAllUserAcc.php"
+	}
+}
 </script>
 </body>
 </html>
