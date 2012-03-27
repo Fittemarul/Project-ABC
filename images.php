@@ -91,7 +91,9 @@ if(!$is_admin){
 					}
 
 					echo "<tr>";
-						echo "<td> - </td>";
+						echo "<td>".
+							"<a href='javascript:removeImage($id)'><img src='img/delete.png'></a>"
+						."</td>";
 						echo "<td>$image_naam</td>";
 						echo "<td>$software_html</td>";
 					echo "</tr>";
@@ -181,6 +183,16 @@ function verzendForm(form){
 
 	return validate.form(form);
 
+}
+
+function removeImage(id){
+	var msg = confirm("Bent u zeker dat u deze image wilt verwijderen?\n(Actie onomkeerbaar)");
+	
+	if(msg){
+		window.location = "edit/deleteImage.php?id=" + id;
+	}else{
+		return false
+	}
 }
 
 </script>
