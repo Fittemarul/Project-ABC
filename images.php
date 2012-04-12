@@ -92,7 +92,8 @@ if(!$is_admin){
 
 					echo "<tr>";
 						echo "<td>".
-							"<a href='javascript:removeImage($id)'><img src='img/delete.png'></a>"
+							"<a href='javascript:removeImage($id)'><img src='img/delete.png'></a>".
+							"<a href='javascript:editImage($id, \"$image_naam\", \"$software_html\")'><img src='img/pencil.png'></a>"
 						."</td>";
 						echo "<td>$image_naam</td>";
 						echo "<td>$software_html</td>";
@@ -187,12 +188,86 @@ function verzendForm(form){
 
 function removeImage(id){
 	var msg = confirm("Bent u zeker dat u deze image wilt verwijderen?\n(Actie onomkeerbaar)");
-	
+
 	if(msg){
 		window.location = "edit/deleteImage.php?id=" + id;
 	}else{
 		return false
 	}
+}
+
+//
+// Functie die wordt aangeroepen als gebruiker image
+// wil bewerken
+//
+function editImage(imageID){
+	//
+	// Haal de bewerkinformatie op via AJAX
+	//
+	xhr("ajax/image_bewerk.php?id=" + imageID, start_edit);
+}
+
+//
+// Functie die bewerk data van editImage()
+// weergeeft
+//
+function start_edit(data){
+	//
+	// We zitten in bewerk modus!
+	//
+	$('softwareEditAdd').innerHTML = "Image bewerken";
+
+
+	//
+	// Ajax data parsen naar JSON
+	//
+	data = JSON.parse(data.responseText);
+
+	//
+	// Verkregen data wegschrijven in formulier
+	//
+	document.nieuwImage.image_naam.value = data[0].image_naam;
+
+	geselecteerdSoftware = data[0].ids.split(',');
+
+	softwarenamen = new Array();
+	softwarenamen = data[0].software_names.split(',');
+
+
+
+	//
+	// Toevoegen in de lijst van software
+	//
+	for(i=0; i<=softwarenamen.length-1; i++){
+		var parent = document.getElementById('gewensteSoftware');
+		var nieuw = document.createElement("li");
+
+		nieuw.innerHTML = '<a href="javascript:void(0);"onclick="removeMe(this);geselecteerdSoftware.remove(\''+ geselecteerdSoftware[i] +'\')">'+
+						'<img src="img/delete.png" title="Verwijder softwarepakket"></a> ' +
+						softwarenamen[i];
+
+		parent.appendChild(nieuw);
+	}
+
+	//
+	// hidden input maken voor bewerk modus
+	//
+		//
+	// Hidden input maken voor id
+	//
+	var hiddenInput = document.createElement('input');
+	hiddenInput.setAttribute('type', 'hidden');
+	hiddenInput.setAttribute('name', 'id');
+	hiddenInput.setAttribute('value', data[0].image_id);
+
+	document.nieuwImage.appendChild(hiddenInput); // element in formulier schrijven
+
+	//
+	// form action veranderen naar edit
+	//
+	document.nieuwImage.action = "edit/editImage.php";
+
+	toggleShade();
 }
 
 </script>

@@ -8,4 +8,12 @@ function getSoftwarePackage($id){
 	}
 }
 
+function getSoftwareNameById($id){
+	$qry_name = mysql_query("SELECT naam FROM software WHERE id = '$id' LIMIT 1");
+
+	while($row = mysql_fetch_assoc($qry_name)){
+		return $row['naam'];
+	}
+}
+
 ?>
