@@ -6,6 +6,15 @@ if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
 }
 
+//
+// Controleren of importmodus werd doorgegeven
+//
+if(isset($_POST['mode'])){
+	$mode = $_POST['mode'];
+}else{
+	die('Er is iets mis gegaan. Gelieve terug te keren naar de vorige pagina.');
+}
+
 $allowed_filetypes = array('.csv');
 $max_filesize = 524288; // Maximum filesize (currently 0.5MB).
 
@@ -25,7 +34,7 @@ $input = file_get_contents($_FILES['file']['tmp_name']);
 //
 // Verwijder ALLE spaties (Voor veiligheid)
 //
-$input = str_replace(' ', '', $input);
+//$input = str_replace(' ', '', $input);
 
 //
 // Door de CSV lijnen lopen. Gebruikt automatisch de gebruikte line-endings
@@ -34,62 +43,94 @@ $input = str_replace(' ', '', $input);
 foreach(preg_split("/(\r?\n)/", $input) as $line)
 {
     $velden = explode(";", $line);
-	$username = $velden[0];
-	$pass = sha1($velden[1]);
 
-	//
-	// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
-	// dit is geen gebruiker en mag dus niet geimporteerd worden!
-	//
-	if($line == "" || $line == " "){
-		continue;
-	}
+    //
+    // Modus: gebruikers importeren
+    //
+    if($mode == 'gebruikers'){
+    	$username = $velden[0];
+		$pass = sha1($velden[1]);
 
-	$qry_insert = mysql_query("INSERT INTO users (username, userpass, time_lastlogon, is_admin, active) VALUES ('$username', '$pass', '0000-00-00 00:00:00', '0', '1')");
-
-	if(!$qry_insert){
-		$error = mysql_errno($link);
-
-		if($error == "1062"){
-
-			echo "<br> Gebruiker $username bestaat al! Niet geimporteerd.";
+		//
+		// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
+		// dit is geen gebruiker en mag dus niet geimporteerd worden!
+		//
+		if($line == "" || $line == " "){
 			continue;
-
 		}
-		else{
-			die("Er heeft zich een fout voorgedaan.");
-		}
-	}
 
-	echo "<br>&bull; Gebruiker $username toegevoegd.";
+		$qry_insert = mysql_query("INSERT INTO users (username, userpass, time_lastlogon, is_admin, active)
+									VALUES ('$username', '$pass', '0000-00-00 00:00:00', '0', '1')");
+
+		if(!$qry_insert){
+			$error = mysql_errno($link);
+
+			if($error == "1062"){
+
+				echo "<br> Gebruiker $username bestaat al! Niet geimporteerd.";
+				continue;
+
+			}
+			else{
+				die("Er heeft zich een fout voorgedaan.");
+			}
+		}
+
+		echo "<br>&bull; Gebruiker $username toegevoegd.";
+    }
+
+    //
+    // Modus: klassen importeren
+    //
+    if($mode == 'klassen'){
+    	$lokaal = $velden[0];
+    	$beschrijving = $velden[1];
+    	$voorzieningen = $velden[2];
+
+    	//
+		// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
+		// dit is geen gebruiker en mag dus niet geimporteerd worden!
+		//
+		if($line == "" || $line == " "){
+			continue;
+		}
+
+		$qry_insert = mysql_query("INSERT INTO lokalen (lokaal, beschrijving, voorzieningen)
+									VALUES ('$lokaal', '$beschrijving', '$voorzieningen')");
+
+		if(!$qry_insert){
+			$error = mysql_errno($link);
+
+			if($error == "1062"){
+
+				echo "<br> Lokaal $lokaal bestaat al! Niet geimporteerd.";
+				continue;
+
+			}
+			else{
+				die("Er heeft zich een fout voorgedaan.");
+			}
+		}
+
+		echo "<br>&bull; Lokaal $lokaal werd toegevoegd.";
+
+    }
+
+
+
 }
-
-/*
-$rijen = explode("\r", $input);
-
-for($i = 0; $i<= count($rijen) -1; $i++){
-
-	$velden = explode(";", $rijen[$i]);
-	$username = $velden[0];
-	$pass = sha1($velden[1]);
-
-	$qry_insert = mysql_query("INSERT INTO users (username, userpass, time_lastlogon, is_admin, active) VALUES ('$username', '$pass', '0000-00-00 00:00:00', '0', '1')");
-
-	if(!$qry_insert){
-		$error = mysql_errno($link);
-
-		if($error == "1062"){
-			echo "<br> Gebruiker $username bestaat al! Niet geimporteerd.";
-		}else{
-			die("Er heeft zich een fout voorgedaan");
-		}
-	}
-
-	echo "<br>Gebruiker $username toegevoegd.";
-}*/
 
 echo "<br><br> Importeren voltooid.<br>";
 echo "<a href='../abc.php'>Klik hier om terug te keren</a><br>";
-echo "<a href='../gebruikers.php'>Klik hier om de gebruikers te bekijken.</a>";
+
+//
+// Aangepaste boodschap weergeven
+//
+if($mode == 'gebruikers'){
+	echo "<a href='../gebruikers.php'>Klik hier om de gebruikers te bekijken.</a>";
+}else{
+	echo "<a href='../lokalen.php'>Klik hier om de lokalen te bekijken.</a>";
+}
+
 
 ?>
