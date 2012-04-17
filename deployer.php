@@ -20,7 +20,10 @@ if(!$is_admin){
 
 		<h1>Deployer log</h1>
 		<?php
-			echo str_replace("\n", "<br>", file_get_contents("http://abc.savjee.be/gitDeploy/log.txt"));
+			$lines = file ('http://abc.savjee.be/gitDeploy/log.txt');
+			$lines = array_reverse($lines);
+			echo implode("<br>", $lines);
+			//	echo str_replace("\n", "<br>", file_get_contents("http://abc.savjee.be/gitDeploy/log.txt"));
 		?>
 
 		<div id="clear"> </div>
