@@ -48,8 +48,8 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
     // Modus: gebruikers importeren
     //
     if($mode == 'gebruikers'){
-    	$username = $velden[0];
-		$pass = sha1($velden[1]);
+    	$username = mysql_real_escape_string( $velden[0] );
+		$pass = sha1(mysql_real_escape_string( $velden[1] ) );
 
 		//
 		// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
@@ -83,9 +83,9 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
     // Modus: klassen importeren
     //
     if($mode == 'klassen'){
-    	$lokaal = $velden[0];
-    	$beschrijving = $velden[1];
-    	$voorzieningen = $velden[2];
+    	$lokaal = mysql_real_escape_string( $velden[0] );
+    	$beschrijving = mysql_real_escape_string( $velden[1] );
+    	$voorzieningen = mysql_real_escape_string( $velden[2] );
 
     	//
 		// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
