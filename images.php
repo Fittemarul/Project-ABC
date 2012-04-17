@@ -74,7 +74,7 @@ if(!$is_admin){
 			</tr>
 
 			<?php
-				$qry_wensen = mysql_query("SELECT *	FROM images LIMIT 250");
+				$qry_wensen = mysql_query("SELECT *	FROM images ORDER BY image_naam ASC LIMIT 250");
 
 
 				while($row = mysql_fetch_assoc($qry_wensen)){
