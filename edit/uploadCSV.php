@@ -31,10 +31,6 @@ if(filesize($_FILES['file']['tmp_name']) > $max_filesize){
 
 $input = file_get_contents($_FILES['file']['tmp_name']);
 
-//
-// Verwijder ALLE spaties (Voor veiligheid)
-//
-//$input = str_replace(' ', '', $input);
 
 //
 // Door de CSV lijnen lopen. Gebruikt automatisch de gebruikte line-endings
