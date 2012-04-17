@@ -96,7 +96,7 @@ include("conf/sessionCheck.php");
 			</a>
 
 			<a href="importUsers.php?mode=klassen">
-				<li><img src="img/users_import.png">
+				<li><img src="img/klassen_import.png">
 					Klassen importeren
 				</li>
 			</a>
