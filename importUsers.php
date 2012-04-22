@@ -30,6 +30,8 @@ if( isset($_GET['mode']) ){
 
 		<?php include('conf/header.php') ?>
 
+		<form action="edit/uploadCSV.php" method="post" enctype="multipart/form-data">
+
 		<?php
 			//
 			// Code voor het importeren van gebruikers CSV
@@ -80,9 +82,7 @@ if( isset($_GET['mode']) ){
 				</ul>
 			</div>
 
-			<div class="info">
-				Bestaande lokalen worden door de importeer functie NIET overschreven.
-			</div>
+			Wilt u bestaande lokalen overschrijven? <select name="overwrite"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select>
 		<?php
 			} // einde importfunctie klassen
 		?>
@@ -96,7 +96,6 @@ if( isset($_GET['mode']) ){
 				echo "<h1>CSV met lokalen importeren</h1>";
 			}
 		?>
-			<form action="edit/uploadCSV.php" method="post" enctype="multipart/form-data">
 
 				<p>CSV bestand: <input name="file" type="file" size="35" /></p>
 				<input type="submit" name="Submit" value="Upload" />

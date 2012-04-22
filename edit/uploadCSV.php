@@ -33,6 +33,12 @@ $input = file_get_contents($_FILES['file']['tmp_name']);
 
 
 //
+// Voor klassen alleen!
+//
+$overwrite = $_POST['overwrite'];
+
+
+//
 // Door de CSV lijnen lopen. Gebruikt automatisch de gebruikte line-endings
 // bron: http://stackoverflow.com/questions/1462720/iterate-over-each-line-in-a-string-in-php
 //
@@ -81,7 +87,8 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
     if($mode == 'klassen'){
     	$lokaal = mysql_real_escape_string( $velden[0] );
     	$beschrijving = mysql_real_escape_string( $velden[1] );
-    	$voorzieningen = mysql_real_escape_string( $velden[2] );
+    	$aantalpersonen = mysql_real_escape_string( $velden[2] );
+    	$voorzieningen = mysql_real_escape_string( $velden[3] );
 
     	//
 		// Excel heeft de neiging om een lege lijn aan het einde van CSV toe te voegen.
@@ -91,10 +98,30 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
 			continue;
 		}
 
-		$qry_insert = mysql_query("INSERT INTO lokalen (lokaal, beschrijving, voorzieningen)
-									VALUES ('$lokaal', '$beschrijving', '$voorzieningen')");
+		//
+		// Als we bestaande lokalen mogen overschrijven:
+		//
+		if($overwrite == '1'){
+			$qry_checkIfExists = mysql_query("SELECT * FROM lokalen WHERE lokaal = '$lokaal' LIMIT 1");
 
-		if(!$qry_insert){
+			if(mysql_num_rows($qry_checkIfExists) != 0){
+				$qry_overwriteLokaal = mysql_query("UPDATE lokalen SET beschrijving = '$beschrijving', aantalpersonen = '$aantalpersonen', voorzieningen = '$voorzieningen'
+													WHERE lokaal = '$lokaal'
+													LIMIT 1");
+			}else{
+
+				$qry_insert = mysql_query("INSERT INTO lokalen (lokaal, beschrijving, voorzieningen, aantalpersonen)
+								VALUES ('$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen')");
+			}
+		}else{
+
+			$qry_insert = mysql_query("INSERT INTO lokalen (lokaal, beschrijving, voorzieningen, aantalpersonen)
+									VALUES ('$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen')");
+		}
+
+
+
+/*		if(!$qry_insert){
 			$error = mysql_errno($link);
 
 			if($error == "1062"){
@@ -107,6 +134,7 @@ foreach(preg_split("/(\r?\n)/", $input) as $line)
 				die("Er heeft zich een fout voorgedaan.");
 			}
 		}
+*/
 
 		echo "<br>&bull; Lokaal $lokaal werd toegevoegd.";
 
