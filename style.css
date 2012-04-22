@@ -133,7 +133,7 @@ table tr:hover{
 
 #shade {
 	background-color: #000;
-	position: absolute;
+	position:fixed;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -145,7 +145,7 @@ table tr:hover{
 
 #overlay {
 	padding: 20px;
-	position: absolute;
+	position:fixed;
 	top: 10%;
 	overflow:scroll;
 	bottom: 10%;
