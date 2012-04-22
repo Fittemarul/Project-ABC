@@ -9,12 +9,13 @@ if(!$is_admin){
 $lokaal = mysql_real_escape_string( $_POST['lokaal'] );
 $beschrijving = mysql_real_escape_string( $_POST['beschrijving']);
 $voorzieningen = mysql_real_escape_string($_POST['voorzieningen']);
+$aantalpersonen = mysql_real_escape_string($_POST['aantalpersonen']);
 
-$qry_insert = mysql_query("INSERT INTO lokalen (`lokaal`, `beschrijving`, `voorzieningen`) VALUES ('$lokaal', '$beschrijving', '$voorzieningen')");
+$qry_insert = mysql_query("INSERT INTO lokalen (`lokaal`, `beschrijving`, `voorzieningen`, `aantalpersonen`) VALUES ('$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen')");
 
 if(!$qry_insert){
 	$error = mysql_errno($link);
-	
+
 	if($error == "1062"){
 		die("Dit lokaal bestaat al in de database!");
 	}

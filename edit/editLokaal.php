@@ -10,12 +10,13 @@ $lokaal = mysql_real_escape_string( $_POST['lokaal'] );
 $beschrijving = mysql_real_escape_string( $_POST['beschrijving']);
 $voorzieningen = mysql_real_escape_string($_POST['voorzieningen']);
 $id = mysql_real_escape_string($_POST['id']);
+$aantalpersonen = mysql_real_escape_string($_POST['aantalpersonen']);
 
 
 //
 // Bewerken in database
 //
-$qry_edit = mysql_query("UPDATE lokalen SET lokaal = '$lokaal', beschrijving = '$beschrijving', voorzieningen = '$voorzieningen' WHERE id = '$id' LIMIT 1");
+$qry_edit = mysql_query("UPDATE lokalen SET lokaal = '$lokaal', beschrijving = '$beschrijving', voorzieningen = '$voorzieningen', aantalpersonen = '$aantalpersonen' WHERE id = '$id' LIMIT 1");
 
 if(!$qry_edit){
 	die("Kon wijziging niet doorvoeren.");

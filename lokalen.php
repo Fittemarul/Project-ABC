@@ -13,30 +13,31 @@ if(!$is_admin){
 	<title>Project ABC</title>
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8">
 	<link rel="icon" href="img/favicon.ico">
-	
+
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
-	
+
 </head>
 <body>
 	<div id="overlay">
 		<h1 id="lokaalAddEdit">Nieuw lokaal toevoegen</h1>
-		
+
 			<form action="edit/addLokaal.php" method="post" onsubmit="return validate.form(this);" name="nieuwLokaal">
-		
+
 			Lokaal: <input type="text" name="lokaal" class="required"><br><br>
+			Aantal personen: <input type="number" name="aantalpersonen"><br><br>
 			Beschrijving: <br><textarea cols="40" rows="5" name="beschrijving" class="linebreak"></textarea><br><br>
 			Voorzieningen: <br><textarea cols="40" rows="5" name="voorzieningen" class="linebreak"></textarea>
-		
+
 			<br><br>
-		
+
 			<input type="submit" value="Opslaan" id="btnSubmit"/>
-		
+
 		</form>
 	</div>
-	
+
 	<div id="appBox">
-		
+
 		<?php include('conf/header.php') ?>
 
 		<h1>Lokalen beheren</h1>
@@ -45,48 +46,51 @@ if(!$is_admin){
 			<tr class="noSelect">
 				<th width="10%" class="sorttable_nosort">Opties</th>
 				<th width="20%">Lokaal</th>
-				<th width="40%">Beschrijving</th>
+				<th width="20%">Beschrijving</th>
+				<th width="20%">Aantal personen</th>
 				<th width="40%">Voorzieningen</th>
 			</tr>
-		
+
 		<?php
 			$qry_lokalen = mysql_query("SELECT * FROM lokalen ORDER BY lokaal ASC");
-			
-			
+
+
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				// Variabelen voor edit functie in JS
 				$lokaalID = $row['id'];
 				$lokaal = $row['lokaal'];
 				$beschrijving = $row['beschrijving'];
 				$voorzieningen = str_replace("\n", "<br>", $row['voorzieningen']);
-				
+				$aantalpersonen = $row['aantalpersonen'];
+
 				echo "<tr>";
-				
+
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
+							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
 							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>";
-							
+
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". str_replace("\n", "<br>", $row['beschrijving']) ."</td>";
+					echo "<td>$aantalpersonen</td>";
 					echo "<td>". str_replace("\n", "<br>", $row['voorzieningen']) ."</td>";
 				echo "</tr>";
 			}
-			
-		
+
+
 		?>
-		
+
 		</table>
 
 		<div id="clear"> </div>
 	</div>
-	
+
 	<?php include('conf/footer.php') ?>
-	
+
 <script type="text/javascript">
 
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?\n(OPGELET: Alle computers die geassocieerd zijn met dit lokalen zullen ook verwijderd worden!)");
-	
+
 	if(msg){
 		window.location = "edit/deleteLokaal.php?id=" + a;
 	}else{
@@ -98,19 +102,20 @@ function confirmDelete(a){
 // Functie voor bewerken van een lokaal
 // maakt gebruik van het nieuwLokaal formulier (geen extra formulieren: yeah!)
 //
-function editLokaal(id, lokaal, beschrijving, voorzieningen){
+function editLokaal(id, lokaal, beschrijving, voorzieningen, aantalpersonen){
 	toggleShade(); // Bewerk overlay tonen
-	
+
 	//
 	// Waardes te wijzigen lokaal wegschrijven in formulier
 	//
 	$('lokaalAddEdit').innerHTML = "Lokaal bewerken";
-	
+
 	document.nieuwLokaal.lokaal.value = lokaal;
 	document.nieuwLokaal.beschrijving.value = beschrijving;
 	document.nieuwLokaal.voorzieningen.value = voorzieningen.replace(/<br>/g, "\n");
-	
-	
+	document.nieuwLokaal.aantalpersonen.value = aantalpersonen;
+
+
 	//
 	// Hidden input maken voor id
 	//
@@ -118,11 +123,11 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen){
 	hiddenInput.setAttribute('type', 'hidden');
 	hiddenInput.setAttribute('name', 'id');
 	hiddenInput.setAttribute('value', id);
-	
+
 	document.nieuwLokaal.appendChild(hiddenInput); // element in formulier schrijven
-	
+
 	document.nieuwLokaal.action = "edit/editLokaal.php";
-	
+
 }
 </script>
 </body>
