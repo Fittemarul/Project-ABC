@@ -98,3 +98,10 @@ Array.prototype.remove = function(){
 function removeMe(link) {
     link.parentNode.parentNode.removeChild(link.parentNode);
 }
+
+//
+// This function decodes a URL encoded string
+//
+function urldecode(str) {
+   return decodeURIComponent((str+'').replace(/\+/g, '%20'));
+}

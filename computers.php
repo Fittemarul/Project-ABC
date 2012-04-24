@@ -248,11 +248,20 @@ function voegImageToe(){
 // Werkt softwarelijst bij
 function updateSelectedImage(){
 
-	for(i=0; i<= software.length -1; i++){
-		if(software[i].softnaam == $('nieuwImage')[$('nieuwImage').selectedIndex].text){
-			$('selectedImage').innerHTML = software[i].software;
+	xhr("ajax/softwareInImage.php?id=" + $('nieuwImage').value, function(data){
+
+		gekoppeld = eval("(" + data.responseText + ")"); // Parse the JSON array
+
+		$('selectedImage').innerHTML = urldecode(gekoppeld[0].software);
+
+
+	});
+
+	/*for(i=0; i<= images.length -1; i++){
+		if(images[i].softnaam == $('nieuwImage')[$('nieuwImage').selectedIndex].text){
+			$('selectedImage').innerHTML = images[i].software;
 		}
-	}
+	}*/
 
 }
 
