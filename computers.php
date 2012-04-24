@@ -71,17 +71,17 @@ if(!$is_admin){
 
 			<br><br>
 
-			<h1>Softwarepakketten koppelen</h1>
-			<div id="geselecteerdSoft">
+			<h1>Images koppelen</h1>
+			<div id="geselecteerdImage">
 				De door u geselecteerde software bevat:
-				<p id="selectedSoftware"> </p>
+				<p id="selectedImage"> </p>
 			</div>
 
 			Toevoegen:
-				<select id="nieuwSoftware" onchange="updateSelectSoft()">
+				<select id="nieuwImage" onchange="updateSelectedImage()">
 					<option value="0">Bezig met laden...</option>
 				</select>
-			<button type="button" onclick="voegSoftToe()">Voeg toe</button>
+			<button type="button" onclick="voegImageToe()">Voeg toe</button>
 			<br>
 
 			<ul id="gelinkteSoftware">
@@ -185,7 +185,7 @@ function addComputer(){
     xhr("ajax/leveranciers.php", verwerkLeveranciers);
 
 	// Softwarepakketten ophalen
-	xhr("ajax/software.php", verwerkSoftware);
+	xhr("ajax/images.php", verwerkImages);
 
 }
 
@@ -205,11 +205,11 @@ function verwerkLeveranciers(data){
     }
 }
 
-function verwerkSoftware(data){
-	software = eval("(" + data.responseText + ")"); // Parse the JSON array
+function verwerkImages(data){
+	images = eval("(" + data.responseText + ")"); // Parse the JSON array
 
-    for(i=0; i<= software.length -1; i++){
-        $('nieuwSoftware').options[i] = new Option(software[i].softnaam, software[i].id);
+    for(i=0; i<= images.length -1; i++){
+        $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
     }
 }
 
@@ -217,7 +217,7 @@ function verwerkSoftware(data){
 // functie die geselecteerd software pakket toevoegd aan
 //
 
-function voegSoftToe(){
+function voegImageToe(){
 
 	// Welk software pakket?
 	var pakket_naam = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text;
@@ -246,11 +246,11 @@ function voegSoftToe(){
 }
 
 // Werkt softwarelijst bij
-function updateSelectSoft(){
+function updateSelectedImage(){
 
 	for(i=0; i<= software.length -1; i++){
-		if(software[i].softnaam == $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text){
-			$('selectedSoftware').innerHTML = software[i].software;
+		if(software[i].softnaam == $('nieuwImage')[$('nieuwImage').selectedIndex].text){
+			$('selectedImage').innerHTML = software[i].software;
 		}
 	}
 
