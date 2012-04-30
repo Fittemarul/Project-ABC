@@ -16,4 +16,12 @@ function getSoftwareNameById($id){
 	}
 }
 
+function getSoftwarepackByImageId($id){
+	$qry_image = mysql_query("SELECT image_naam FROM images WHERE id='$id' ");
+
+	while($row = mysql_fetch_assoc($qry_image)){
+		return "- " . $row['image_naam']. "<br>";
+	}
+}
+
 ?>

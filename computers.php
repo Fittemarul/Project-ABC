@@ -117,7 +117,7 @@ if(!$is_admin){
 				<th width="10%">Type</th>
 				<th width="10%">Lokaal</th>
 				<th width="15%">Leverancier</th>
-				<th width="35%">Software</th>
+				<th width="35%">Images</th>
 			</tr>
 
 		<?php
@@ -131,7 +131,7 @@ if(!$is_admin){
 				// Variabelen voor edit functie in JS
 				$compID = $row['id'];
 				$compNaam = $row['pc_naam'];
-				$compSoftware = $row['pc_software'];
+				$compSoftware = $row['pc_images'];
 				$compType = $row['pc_type'];
 
 				echo "<tr>";
@@ -151,7 +151,15 @@ if(!$is_admin){
 
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
-					echo "<td>". getSoftwarePackage($row['pc_software']) ."</td>";
+
+					echo "<td>";
+						$compSoftware = explode(",", $compSoftware);
+
+						for($i=0; $i <= count($compSoftware)-1; $i++){
+							echo getSoftwarepackByImageId( $compSoftware[$i] );
+						}
+					echo "</td>";
+
 				echo "</tr>";
 			}
 
