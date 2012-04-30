@@ -17,17 +17,17 @@ $aankoop = mysql_real_escape_string( $_POST['aankoop'] );
 $nic = mysql_real_escape_string( $_POST['nic'] );
 $leverancier = mysql_real_escape_string( $_POST['leverancier'] );
 $pc_type = mysql_real_escape_string( $_POST['pc_type'] );
-$software = mysql_real_escape_string($_POST['software']);
+$images = mysql_real_escape_string($_POST['images']);
 
 
-$qry_insert = mysql_query("INSERT INTO inventaris (`pc_naam` ,`lokaal_id` ,`pc_ram` ,`pc_cpu` ,`pc_hdd` ,`pc_gpu` ,`pc_datumaankoop` ,`pc_netwerkkaart` ,`pc_leverancier` ,`pc_type` ,`pc_software`) 
-							VALUES ('$pc_naam', '$lokaal', '$ram', '$cpu', '$hdd', '$gpu', '$aankoop', '$nic', '$leverancier', '$pc_type', '$software')") or die(mysql_error());
+$qry_insert = mysql_query("INSERT INTO inventaris (`pc_naam` ,`lokaal_id` ,`pc_ram` ,`pc_cpu` ,`pc_hdd` ,`pc_gpu` ,`pc_datumaankoop` ,`pc_netwerkkaart` ,`pc_leverancier` ,`pc_type` ,`pc_images`) 
+							VALUES ('$pc_naam', '$lokaal', '$ram', '$cpu', '$hdd', '$gpu', '$aankoop', '$nic', '$leverancier', '$pc_type', '$images')") or die(mysql_error());
 
 if(!$qry_insert){
 	$error = mysql_errno($link);
 	
 	if($error == "1062"){
-		die("Deze leverancier staat al in de database!");
+		die("Deze computer staat al in de database!");
 	}
 }else{
 	echo "De computer werd toegevoegd aan de inventaris!";

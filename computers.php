@@ -121,12 +121,10 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_software, lokaal, leverancier_naam
+			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_images, lokaal, leverancier_naam
 			FROM inventaris a
 			INNER JOIN lokalen b ON a.lokaal_id = b.id
 			INNER JOIN leveranciers c ON a.pc_leverancier = c.id");
-
-
 
 
 			while($row = mysql_fetch_assoc($qry_lokalen)){
@@ -279,10 +277,10 @@ function verzendForm(form){
 	//
 	var hiddenInput = document.createElement('input');
 	hiddenInput.setAttribute('type', 'hidden');
-	hiddenInput.setAttribute('name', 'software');
+	hiddenInput.setAttribute('name', 'images');
 	hiddenInput.setAttribute('value', geselecteerdSoftware.join(','));
 
-	document.nieuwWens.appendChild(hiddenInput); // element in formulier schrijven
+	document.nieuwComputer.appendChild(hiddenInput); // element in formulier schrijven
 
 	return validate.form(form);
 
