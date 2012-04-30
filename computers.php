@@ -72,17 +72,25 @@ if(!$is_admin){
 			<br><br>
 
 			<h1>Images koppelen</h1>
-			<div id="geselecteerdImage">
-				De door u geselecteerde software bevat:
+
+			<!-- RECHTSE DIV -->
+			<div id="geselecteerdSoft">
+				<b>De door u geselecteerde software bevat:</b>
 				<p id="selectedImage"> </p>
 			</div>
 
-			Toevoegen:
-				<select id="nieuwImage" onchange="updateSelectedImage()">
-					<option value="0">Bezig met laden...</option>
-				</select>
-			<button type="button" onclick="voegImageToe()">Voeg toe</button>
+
+			<!-- LINKSE DIV -->
+			<div style="width:600px">
+				Toevoegen:
+					<select id="nieuwImage" onchange="updateSelectedImage()">
+						<option value="0">Bezig met laden...</option>
+					</select>
+				<button type="button" onclick="voegImageToe()">Voeg toe</button>
+			</div>
+
 			<br>
+			<div style="clear:both"> </div>
 
 			<ul id="gelinkteSoftware">
 			</ul>
@@ -211,6 +219,9 @@ function verwerkImages(data){
     for(i=0; i<= images.length -1; i++){
         $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
     }
+
+    // Eerste software in image al tonen
+    updateSelectedImage();
 }
 
 //
@@ -254,14 +265,7 @@ function updateSelectedImage(){
 
 		$('selectedImage').innerHTML = urldecode(gekoppeld[0].software);
 
-
 	});
-
-	/*for(i=0; i<= images.length -1; i++){
-		if(images[i].softnaam == $('nieuwImage')[$('nieuwImage').selectedIndex].text){
-			$('selectedImage').innerHTML = images[i].software;
-		}
-	}*/
 
 }
 
