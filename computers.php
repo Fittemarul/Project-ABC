@@ -92,7 +92,7 @@ if(!$is_admin){
 			<br>
 			<div style="clear:both"> </div>
 
-			<ul id="gelinkteSoftware">
+			<ul id="gelinkteSoftware" style="padding:5px; list-style-type:none;">
 			</ul>
 
 			<br><br>
@@ -231,15 +231,15 @@ function verwerkImages(data){
 function voegImageToe(){
 
 	// Welk software pakket?
-	var pakket_naam = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].text;
-	var pakket_id = $('nieuwSoftware')[$('nieuwSoftware').selectedIndex].value;
+	var pakket_naam = $('nieuwImage')[$('nieuwImage').selectedIndex].text;
+	var pakket_id = $('nieuwImage')[$('nieuwImage').selectedIndex].value;
 
 	//
 	// Eerst controleren of pakket reeds werd toegevoegd
 	//
 	for(i=0; i<=geselecteerdSoftware.length -1; i++){
 		if(pakket_id == geselecteerdSoftware[i]){
-			alert("Pakket werd reeds toegevoegd aan uw selectie");
+			alert("Image werd reeds toegevoegd aan uw selectie");
 			return; // niet verder gaan
 		}
 	}
@@ -250,7 +250,11 @@ function voegImageToe(){
 	var parent = document.getElementById('gelinkteSoftware');
 	var nieuw = document.createElement("li");
 
-	nieuw.innerHTML = pakket_naam;
+	nieuw.innerHTML = '<a href="javascript:void(0);"onclick="removeMe(this);geselecteerdSoftware.remove(\''+ pakket_id +'\')">'+
+						'<img src="img/delete.png" title="Verwijder softwarepakket"></a> ' +
+						pakket_naam;
+
+	//nieuw.innerHTML = pakket_naam;
 
 	parent.appendChild(nieuw);
 
