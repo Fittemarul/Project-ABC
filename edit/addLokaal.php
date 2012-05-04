@@ -10,8 +10,9 @@ $lokaal = mysql_real_escape_string( $_POST['lokaal'] );
 $beschrijving = mysql_real_escape_string( $_POST['beschrijving']);
 $voorzieningen = mysql_real_escape_string($_POST['voorzieningen']);
 $aantalpersonen = mysql_real_escape_string($_POST['aantalpersonen']);
+$gekoppelde_image = mysql_real_escape_string( $_POST['image'] );
 
-$qry_insert = mysql_query("INSERT INTO lokalen (`lokaal`, `beschrijving`, `voorzieningen`, `aantalpersonen`) VALUES ('$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen')");
+$qry_insert = mysql_query("INSERT INTO lokalen (`lokaal`, `beschrijving`, `voorzieningen`, `aantalpersonen`, `image`) VALUES ('$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen', '$gekoppelde_image')");
 
 if(!$qry_insert){
 	$error = mysql_errno($link);

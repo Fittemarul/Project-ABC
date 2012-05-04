@@ -16,6 +16,7 @@ if(!$is_admin){
 
 	<script type="text/javascript" src="js/sorttable.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
+	<script type="text/javascript" src="js/xhr.js"></script>
 
 </head>
 <body>
@@ -31,6 +32,26 @@ if(!$is_admin){
 
 			<br><br>
 
+			<h1>Image koppelen</h1>
+
+			<!-- RECHTSE DIV -->
+			<div id="geselecteerdSoft">
+				<b>De door u geselecteerde software bevat:</b>
+				<p id="selectedImage"> </p>
+			</div>
+
+
+			<!-- LINKSE DIV -->
+			<div style="width:600px">
+				Kies een image die u wilt koppelen aan dit lokaal:
+					<select id="nieuwImage" onchange="updateSelectedImage()" name="image">
+						<option value="0">Bezig met laden...</option>
+					</select>
+			</div>
+
+			<br>
+			<div style="clear:both"> </div>
+
 			<input type="submit" value="Opslaan" id="btnSubmit"/>
 
 		</form>
@@ -41,19 +62,20 @@ if(!$is_admin){
 		<?php include('conf/header.php') ?>
 
 		<h1>Lokalen beheren</h1>
-		<p><a href="#" onclick="toggleShade()"><img src="img/add.png"> Lokaal toevoegen</a></p>
+		<p><a href="#" onclick="toggleShade(); addLokaal();"><img src="img/add.png"> Lokaal toevoegen</a></p>
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
 				<th width="10%" class="sorttable_nosort">Opties</th>
-				<th width="20%">Lokaal</th>
+				<th width="10%">Lokaal</th>
 				<th width="20%">Beschrijving</th>
-				<th width="20%">Aantal personen</th>
-				<th width="40%">Voorzieningen</th>
+				<th width="10%">Capaciteit</th>
+				<th width="20%">Voorzieningen</th>
+				<th width="30%">Gekoppelde image</th>
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT * FROM lokalen ORDER BY lokaal ASC");
-
+			$qry_lokalen = mysql_query("SELECT lokalen.id, lokaal, beschrijving, voorzieningen, aantalpersonen, images.image_naam AS image_naam FROM lokalen
+										LEFT JOIN images ON lokalen.image = images.id");
 
 			while($row = mysql_fetch_assoc($qry_lokalen)){
 				// Variabelen voor edit functie in JS
@@ -62,6 +84,7 @@ if(!$is_admin){
 				$beschrijving = $row['beschrijving'];
 				$voorzieningen = str_replace("\n", "<br>", $row['voorzieningen']);
 				$aantalpersonen = $row['aantalpersonen'];
+				$gekoppelde_image = $row['image_naam'];
 
 				echo "<tr>";
 
@@ -73,6 +96,8 @@ if(!$is_admin){
 					echo "<td>". str_replace("\n", "<br>", $row['beschrijving']) ."</td>";
 					echo "<td>$aantalpersonen</td>";
 					echo "<td>". str_replace("\n", "<br>", $row['voorzieningen']) ."</td>";
+					echo "<td>$gekoppelde_image</td>";
+					
 				echo "</tr>";
 			}
 
@@ -87,6 +112,43 @@ if(!$is_admin){
 	<?php include('conf/footer.php') ?>
 
 <script type="text/javascript">
+
+//
+// Functie die opgeroepen wordt als er een nieuw lokaal wordt toegevoegd
+//
+function addLokaal(){
+	// Softwarepakketten ophalen
+	xhr("ajax/images.php", verwerkImages);
+}
+
+//
+// Functie die de JSON met images verwerkt
+//
+function verwerkImages(data){
+	images = eval("(" + data.responseText + ")"); // Parse the JSON array
+
+    for(i=0; i<= images.length -1; i++){
+        $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
+    }
+
+    // Eerste software in image al tonen
+    updateSelectedImage();
+}
+
+//
+// Functie die weergeeft welke softwarepakketten er in image zitten
+//
+function updateSelectedImage(){
+
+	xhr("ajax/softwareInImage.php?id=" + $('nieuwImage').value, function(data){
+
+		gekoppeld = eval("(" + data.responseText + ")"); // Parse the JSON array
+
+		$('selectedImage').innerHTML = urldecode(gekoppeld[0].software);
+
+	});
+
+}
 
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?\n(OPGELET: Alle computers die geassocieerd zijn met dit lokalen zullen ook verwijderd worden!)");
