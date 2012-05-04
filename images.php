@@ -91,7 +91,7 @@ if(!$is_admin){
 					}
 
 					echo "<tr>";
-						echo "<td>".
+						echo "<td style='text-align:center' class='noSelect'>".
 							"<a href='javascript:removeImage($id)'><img src='img/delete.png'></a>".
 							"<a href='javascript:editImage($id, \"$image_naam\", \"$software_html\")'><img src='img/pencil.png'></a>"
 						."</td>";
