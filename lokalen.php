@@ -74,7 +74,7 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT lokalen.id, lokaal, beschrijving, voorzieningen, aantalpersonen, images.image_naam AS image_naam FROM lokalen
+			$qry_lokalen = mysql_query("SELECT lokalen.id, lokaal, beschrijving, voorzieningen, aantalpersonen, lokalen.image AS image_id, images.image_naam AS image_naam FROM lokalen
 										LEFT JOIN images ON lokalen.image = images.id");
 
 			while($row = mysql_fetch_assoc($qry_lokalen)){
@@ -85,11 +85,12 @@ if(!$is_admin){
 				$voorzieningen = str_replace("\n", "<br>", $row['voorzieningen']);
 				$aantalpersonen = $row['aantalpersonen'];
 				$gekoppelde_image = $row['image_naam'];
+				$gekoppelde_image_id = $row['image_id'];
 
 				echo "<tr>";
 
 					echo "<td style='text-align:center' class='noSelect'>".
-							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
+							"<a href=\"javascript:editLokaal('$lokaalID', '$lokaal', '$beschrijving', '$voorzieningen', '$aantalpersonen', '$gekoppelde_image_id') \"><img src='img/pencil.png' title='Lokaal bewerken'></a>".
 							"<a href='javascript:confirmDelete(".$row['id'].")'><img src='img/delete.png' title='Lokaal verwijderen'></a></td>";
 
 					echo "<td>". $row['lokaal'] ."</td>";
@@ -124,16 +125,36 @@ function addLokaal(){
 //
 // Functie die de JSON met images verwerkt
 //
-function verwerkImages(data){
+function verwerkImages(data, gekoppelde_image){
 	images = eval("(" + data.responseText + ")"); // Parse the JSON array
 
     for(i=0; i<= images.length -1; i++){
-        $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
+    	console.log(gekoppelde_image + " ?= "+ images[i].id);
+    	// image toevoegen aan selectie
+    	$('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
+
+    	// indien gelijk is aan gekoppelde image:
+    	// deze image geselecteerd zetten
+    	if(images[i].id == gekoppelde_image){
+    		console.log("hooo");
+    		$('nieuwImage').options[i].setAttribute('selected', 'selected');
+    		$('nieuwImage').options[i].selected = true;
+    	}
+    }
+
+    //
+    // Mogelijkheid om gekoppelde image te verwijderen
+    //
+    $('nieuwImage').options[images.length] = new Option('Geen image', 'null');
+    if(gekoppelde_image == 0){
+    	$('nieuwImage').options[images.length].selected = true;
     }
 
     // Eerste software in image al tonen
     updateSelectedImage();
 }
+
+
 
 //
 // Functie die weergeeft welke softwarepakketten er in image zitten
@@ -164,7 +185,17 @@ function confirmDelete(a){
 // Functie voor bewerken van een lokaal
 // maakt gebruik van het nieuwLokaal formulier (geen extra formulieren: yeah!)
 //
-function editLokaal(id, lokaal, beschrijving, voorzieningen, aantalpersonen){
+function editLokaal(id, lokaal, beschrijving, voorzieningen, aantalpersonen, gekoppelde_image){
+	//
+	// Images ophalen en gekoppelde image als standaard selcteren
+	//
+	xhr("ajax/images.php", function(data){
+		verwerkImages(data, gekoppelde_image)
+	});
+
+
+
+
 	toggleShade(); // Bewerk overlay tonen
 
 	//
