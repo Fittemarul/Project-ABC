@@ -37,7 +37,7 @@ if(!$is_admin){
 	<div id="overlay">
 		<h1 id="lokaalAddEdit">Computer toevoegen</h1>
 
-			<form action="edit/addComputer.php" method="post" onsubmit="return verzendForm();" name="nieuwComputer">
+			<form action="edit/addComputer.php" method="post" onsubmit="return validate.form(this);" name="nieuwComputer">
 
 			<label>PC groepnaam:</label> <input type="text" name="pc_naam" class="required"><br><br>
 			<label>Aantal:</label> <input type="number" name="aantal" class="required"><br>
@@ -110,15 +110,15 @@ if(!$is_admin){
 		<table class="sortable" width="100%">
 			<tr class="noSelect">
 				<th width="5%" class="sorttable_nosort"></th>
-				<th width="10%">PC naam</th>
-				<th width="5%">Aantal</th>
-				<th width="10%">RAM (MB)</th>
-				<th width="10%">CPU (GHz)</th>
-				<th width="10%">HDD (GB)</th>
+				<th width="20%">PC naam</th>
+				<th width="5%">#</th>
+				<th width="5%">RAM <small>(MB)</small></th>
+				<th width="5%">CPU <small>(GHz)</small></th>
+				<th width="5%">HDD <small>(GB)</small></th>
 				<th width="10%">Type</th>
 				<th width="10%">Lokaal</th>
 				<th width="15%">Leverancier</th>
-				<th width="35%">Images</th>
+				<th width="20%">Images</th>
 			</tr>
 
 		<?php
@@ -136,13 +136,14 @@ if(!$is_admin){
 				$compSoftware = $row['pc_images'];
 				$compType = $row['pc_type'];
 				$aantal = $row['aantal'];
+				$lokaal = $row['lokaal'];
 
 				echo "<tr>";
 
 					echo "<td style='text-align:center' class='noSelect'>-</td>";
 
 					echo "<td>$compNaam</td>";
-					echo "<td>$aantal</td>";
+					echo "<td style='text-align:center'>$aantal</td>";
 					echo "<td>". $row['pc_ram'] ."</td>";
 					echo "<td>". $row['pc_cpu'] ."</td>";
 					echo "<td>". $row['pc_hdd'] ."</td>";
@@ -153,17 +154,15 @@ if(!$is_admin){
 						echo "<td>Laptop</td>";
 					}
 
-					echo "<td>". $row['lokaal'] ."</td>";
+					if($lokaal == ''){
+						echo "<td> / </td>";
+					}else{
+						echo "<td>$lokaal</td>";
+					}
+					//echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
 
 					echo "<td>$compSoftware</td>";
-
-					//	$compSoftware = explode(",", $compSoftware);
-
-					//	for($i=0; $i <= count($compSoftware)-1; $i++){
-					//		echo getSoftwarepackByImageId( $compSoftware[$i] );
-					//	}
-				//	echo "</td>";
 
 				echo "</tr>";
 			}
@@ -179,8 +178,7 @@ if(!$is_admin){
 	<?php include('conf/footer.php') ?>
 
 <script type="text/javascript">
-var geselecteerdSoftware = new Array;
-var software;
+
 function confirmDelete(a){
 	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
 
@@ -249,21 +247,6 @@ function updateSelectedImage(){
 		$('selectedImage').innerHTML = urldecode(gekoppeld[0].software);
 
 	});
-
-}
-
-function verzendForm(form){
-	//
-	// Hidden input maken voor id
-	//
-	var hiddenInput = document.createElement('input');
-	hiddenInput.setAttribute('type', 'hidden');
-	hiddenInput.setAttribute('name', 'images');
-	hiddenInput.setAttribute('value', geselecteerdSoftware.join(','));
-
-	document.nieuwComputer.appendChild(hiddenInput); // element in formulier schrijven
-
-	return validate.form(form);
 
 }
 
