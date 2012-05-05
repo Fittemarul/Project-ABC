@@ -257,7 +257,6 @@ function verwerkImages(data, geselecteerdImage){
     for(i=0; i<= images.length -1; i++){
         $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
 
-        console.log("selected image: "+geselecteerdImage);
         if(images[i].id == geselecteerdImage){
     		$('nieuwImage').options[i].selected = true;
     	}
@@ -327,6 +326,21 @@ function editPC(id, pc_naam, aantal, ram, cpu, hdd, aankoopdatum, netwerkkaart, 
 	xhr("ajax/images.php", function(data){
 		verwerkImages(data, software);
 	});
+
+	//
+	// formulier aanpassen. Het moet naar bewerk gaan.
+	//
+	document.nieuwComputer.action = "edit/editComputer.php";
+
+	//
+	// Hidden input maken voor id
+	//
+	var hiddenInput = document.createElement('input');
+	hiddenInput.setAttribute('type', 'hidden');
+	hiddenInput.setAttribute('name', 'id');
+	hiddenInput.setAttribute('value', id);
+
+	document.nieuwComputer.appendChild(hiddenInput); // element in formulier schrijven
 
 }
 

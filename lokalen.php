@@ -98,7 +98,7 @@ if(!$is_admin){
 					echo "<td>$aantalpersonen</td>";
 					echo "<td>". str_replace("\n", "<br>", $row['voorzieningen']) ."</td>";
 					echo "<td>$gekoppelde_image</td>";
-					
+
 				echo "</tr>";
 			}
 
@@ -136,7 +136,6 @@ function verwerkImages(data, gekoppelde_image){
     	// indien gelijk is aan gekoppelde image:
     	// deze image geselecteerd zetten
     	if(images[i].id == gekoppelde_image){
-    		console.log("hooo");
     		$('nieuwImage').options[i].setAttribute('selected', 'selected');
     		$('nieuwImage').options[i].selected = true;
     	}
