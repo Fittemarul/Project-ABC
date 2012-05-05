@@ -75,29 +75,25 @@ if(!$is_admin){
 
 			<br><br>
 
-			<h1>Images koppelen</h1>
+			<h1>Image koppelen</h1>
 
 			<!-- RECHTSE DIV -->
 			<div id="geselecteerdSoft">
-				<b>De door u geselecteerde software bevat:</b>
+				<b>De door u geselecteerde image bevat:</b>
 				<p id="selectedImage"> </p>
 			</div>
 
 
 			<!-- LINKSE DIV -->
 			<div style="width:600px">
-				Toevoegen:
-					<select id="nieuwImage" onchange="updateSelectedImage()">
+				Kies een image:
+					<select id="nieuwImage" onchange="updateSelectedImage()" name="gekoppelde_image">
 						<option value="0">Bezig met laden...</option>
 					</select>
-				<button type="button" onclick="voegImageToe()">Voeg toe</button>
 			</div>
 
 			<br>
 			<div style="clear:both"> </div>
-
-			<ul id="gelinkteSoftware" style="padding:5px; list-style-type:none;">
-			</ul>
 
 			<br><br>
 			<center><input type="submit" value="Opslaan" id="btnSubmit"/></center>
@@ -126,10 +122,11 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, aantal, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_images, lokaal, leverancier_naam
+			$qry_lokalen = mysql_query("SELECT a.id, aantal, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, lokaal, leverancier_naam, i.image_naam AS pc_images
 			FROM inventaris a
 			LEFT JOIN lokalen b ON a.lokaal_id = b.id
-			LEFT JOIN leveranciers c ON a.pc_leverancier = c.id");
+			LEFT JOIN leveranciers c ON a.pc_leverancier = c.id
+			LEFT JOIN images i ON a.pc_images = i.id");
 
 
 			while($row = mysql_fetch_assoc($qry_lokalen)){
@@ -159,13 +156,14 @@ if(!$is_admin){
 					echo "<td>". $row['lokaal'] ."</td>";
 					echo "<td>". $row['leverancier_naam'] ."</td>";
 
-					echo "<td>";
-						$compSoftware = explode(",", $compSoftware);
+					echo "<td>$compSoftware</td>";
 
-						for($i=0; $i <= count($compSoftware)-1; $i++){
-							echo getSoftwarepackByImageId( $compSoftware[$i] );
-						}
-					echo "</td>";
+					//	$compSoftware = explode(",", $compSoftware);
+
+					//	for($i=0; $i <= count($compSoftware)-1; $i++){
+					//		echo getSoftwarepackByImageId( $compSoftware[$i] );
+					//	}
+				//	echo "</td>";
 
 				echo "</tr>";
 			}
@@ -240,41 +238,6 @@ function verwerkImages(data){
     updateSelectedImage();
 }
 
-//
-// functie die geselecteerd software pakket toevoegd aan
-//
-
-function voegImageToe(){
-
-	// Welk software pakket?
-	var pakket_naam = $('nieuwImage')[$('nieuwImage').selectedIndex].text;
-	var pakket_id = $('nieuwImage')[$('nieuwImage').selectedIndex].value;
-
-	//
-	// Eerst controleren of pakket reeds werd toegevoegd
-	//
-	for(i=0; i<=geselecteerdSoftware.length -1; i++){
-		if(pakket_id == geselecteerdSoftware[i]){
-			alert("Image werd reeds toegevoegd aan uw selectie");
-			return; // niet verder gaan
-		}
-	}
-
-	geselecteerdSoftware.push(pakket_id);
-
-	// Toevoegen aan lijst
-	var parent = document.getElementById('gelinkteSoftware');
-	var nieuw = document.createElement("li");
-
-	nieuw.innerHTML = '<a href="javascript:void(0);"onclick="removeMe(this);geselecteerdSoftware.remove(\''+ pakket_id +'\')">'+
-						'<img src="img/delete.png" title="Verwijder softwarepakket"></a> ' +
-						pakket_naam;
-
-	//nieuw.innerHTML = pakket_naam;
-
-	parent.appendChild(nieuw);
-
-}
 
 // Werkt softwarelijst bij
 function updateSelectedImage(){
