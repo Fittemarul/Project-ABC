@@ -123,8 +123,8 @@ if(!$is_admin){
 		<?php
 			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_images, lokaal, leverancier_naam
 			FROM inventaris a
-			INNER JOIN lokalen b ON a.lokaal_id = b.id
-			INNER JOIN leveranciers c ON a.pc_leverancier = c.id");
+			LEFT JOIN lokalen b ON a.lokaal_id = b.id
+			LEFT JOIN leveranciers c ON a.pc_leverancier = c.id");
 
 
 			while($row = mysql_fetch_assoc($qry_lokalen)){
@@ -209,6 +209,9 @@ function verwerkLokalen(text){
 	for(i=0; i<= lokalen.length -1; i++){
 	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
 	}
+
+	// mogelijkheid om geen lokaal te kiezen (laptops)
+	$('nieuwLokaal').options[lokalen.length] = new Option('Geen lokaal', 'null');
 }
 
 function verwerkLeveranciers(data){
