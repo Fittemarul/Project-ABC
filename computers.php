@@ -140,7 +140,7 @@ if(!$is_admin){
 
 				echo "<tr>";
 
-					echo "<td style='text-align:center' class='noSelect'>-</td>";
+					echo "<td style='text-align:center' class='noSelect'><a href=\"javascript:deletePC('$compID')\"><img src='img/delete.png'></a></td>";
 
 					echo "<td>$compNaam</td>";
 					echo "<td style='text-align:center'>$aantal</td>";
@@ -247,7 +247,19 @@ function updateSelectedImage(){
 		$('selectedImage').innerHTML = urldecode(gekoppeld[0].software);
 
 	});
+}
 
+//
+// Functie die pc verwijderd
+//
+function deletePC(pc_id){
+	var answer = confirm("Bent u zeker dat u deze PC wilt verwijderen?");
+
+	if(answer){
+		window.location = "edit/deletePC.php?id=" + pc_id;
+	}else{
+		return false;
+	}
 }
 
 </script>
