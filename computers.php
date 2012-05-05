@@ -2,13 +2,10 @@
 
 include("conf/db.php");
 include("conf/sessionCheck.php");
-include("conf/functions.php"); // voor functie getSoftwarePackage
 
 if(!$is_admin){
 	die("U heeft geen toegang tot deze pagina");
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -122,7 +119,7 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, aantal, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, lokaal, leverancier_naam, i.image_naam AS pc_images
+			$qry_lokalen = mysql_query("SELECT a.id, aantal, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, lokaal, lokaal_id, leverancier_naam, i.image_naam AS pc_images, i.id AS image_id
 			FROM inventaris a
 			LEFT JOIN lokalen b ON a.lokaal_id = b.id
 			LEFT JOIN leveranciers c ON a.pc_leverancier = c.id
@@ -134,13 +131,28 @@ if(!$is_admin){
 				$compID = $row['id'];
 				$compNaam = $row['pc_naam'];
 				$compSoftware = $row['pc_images'];
+				$compImageID = $row['image_id'];
 				$compType = $row['pc_type'];
+				$compRAM = $row['pc_ram'];
+				$compCPU = $row['pc_cpu'];
+				$compHDD = $row['pc_hdd'];
+				$compGPU = $row['pc_gpu'];
+				$compLeverancier = $row['pc_leverancier'];
+				$compAankoop = $row['pc_datumaankoop'];
+				$compNetwerk = $row['pc_netwerkkaart'];
 				$aantal = $row['aantal'];
 				$lokaal = $row['lokaal'];
+				$lokaal_id = $row['lokaal_id'];
 
 				echo "<tr>";
 
-					echo "<td style='text-align:center' class='noSelect'><a href=\"javascript:deletePC('$compID')\"><img src='img/delete.png'></a></td>";
+					echo "<td style='text-align:center' class='noSelect'>
+							<a href=\"javascript:deletePC('$compID')\"><img src='img/delete.png'></a>
+
+							<a href=\"javascript:editPC('$compID', '$compNaam', '$aantal', '$compRAM', '$compCPU', '$compHDD', '$compAankoop', '$compNetwerk', '$compGPU', '$compType', '$lokaal_id', '$compLeverancier', '$compImageID')\">
+								<img src='img/pencil.png'>
+							</a>
+						  </td>";
 
 					echo "<td>$compNaam</td>";
 					echo "<td style='text-align:center'>$aantal</td>";
@@ -206,30 +218,49 @@ function addComputer(){
 
 }
 
-function verwerkLokalen(text){
+function verwerkLokalen(text, geselecteerdLokaal){
 	var lokalen = eval("(" + text.responseText + ')');
 
 	for(i=0; i<= lokalen.length -1; i++){
 	    $('nieuwLokaal').options[i] = new Option(lokalen[i].lokaalnaam, lokalen[i].id);
+
+	    if(lokalen[i].id == geselecteerdLokaal){
+    		$('nieuwLokaal').options[i].setAttribute('selected', 'selected');
+    		$('nieuwLokaal').options[i].selected = true;
+    	}
 	}
 
 	// mogelijkheid om geen lokaal te kiezen (laptops)
 	$('nieuwLokaal').options[lokalen.length] = new Option('Geen lokaal', 'null');
+
+	// indien er geen lokaal gekoppeld is, de optie 'geen lokaal' weergeven
+	if(geselecteerdLokaal == '0'){
+    	$('nieuwLokaal').options[lokalen.length].selected = true;
+    }
 }
 
-function verwerkLeveranciers(data){
+function verwerkLeveranciers(data, geselecteerdLeverancier){
     var leveranciers = eval("(" + data.responseText + ")"); // Parse the JSON array
 
     for(i=0; i<= leveranciers.length -1; i++){
         $('nieuwLeverancier').options[i] = new Option(leveranciers[i].leverancier,leveranciers[i].id);
+
+       	if(leveranciers[i].id == geselecteerdLeverancier){
+    		$('nieuwLeverancier').options[i].selected = true;
+    	}
     }
 }
 
-function verwerkImages(data){
+function verwerkImages(data, geselecteerdImage){
 	images = eval("(" + data.responseText + ")"); // Parse the JSON array
 
     for(i=0; i<= images.length -1; i++){
         $('nieuwImage').options[i] = new Option(images[i].imagenaam, images[i].id);
+
+        console.log("selected image: "+geselecteerdImage);
+        if(images[i].id == geselecteerdImage){
+    		$('nieuwImage').options[i].selected = true;
+    	}
     }
 
     // Eerste software in image al tonen
@@ -260,6 +291,43 @@ function deletePC(pc_id){
 	}else{
 		return false;
 	}
+}
+
+//
+// functie die overlay vult met gegevens om te bewerken
+//
+//	<a href=\"javascript:editPC('$compID', '$compNaam', '$aantal', '$compRAM', '$compCPU', '$compHDD', '$compAankoop', '$compNetwerk', '$compGPU', '$compType', '$lokaal', '$compLeverancier', '$compSoftware')\">
+function editPC(id, pc_naam, aantal, ram, cpu, hdd, aankoopdatum, netwerkkaart, gpu, type, lokaal, leverancier, software){
+	toggleShade(); // overlay tonen
+
+	document.nieuwComputer.pc_naam.value = pc_naam;
+	document.nieuwComputer.aantal.value = aantal;
+
+	document.nieuwComputer.pc_type.selectedIndex = type;
+
+	// Lokaal opvragen en juiste lokaal selecteren
+	xhr("ajax/lokalen.php", function(data){
+		verwerkLokalen(data, lokaal);
+	});
+
+
+	document.nieuwComputer.ram.value = ram;
+	document.nieuwComputer.cpu.value = cpu;
+	document.nieuwComputer.hdd.value = hdd;
+	document.nieuwComputer.gpu.value = gpu;
+	document.nieuwComputer.aankoop.value = aankoopdatum;
+	document.nieuwComputer.nic.value = netwerkkaart;
+
+	// leverancier
+	xhr('ajax/leveranciers.php', function(data){
+		verwerkLeveranciers(data, leverancier);
+	});
+
+	// software
+	xhr("ajax/images.php", function(data){
+		verwerkImages(data, software);
+	});
+
 }
 
 </script>
