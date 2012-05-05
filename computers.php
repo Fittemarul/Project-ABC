@@ -39,7 +39,16 @@ if(!$is_admin){
 
 			<form action="edit/addComputer.php" method="post" onsubmit="return verzendForm();" name="nieuwComputer">
 
-			<label>PC naam:</label> <input type="text" name="pc_naam" class="required"><br><br>
+			<label>PC groepnaam:</label> <input type="text" name="pc_naam" class="required"><br><br>
+			<label>Aantal:</label> <input type="number" name="aantal" class="required"><br>
+
+			<label>Computer type:</label>
+				<select name="pc_type">
+				  <option value="0">Vaste computer</option>
+				  <option value="1">Laptop</option>
+				</select>
+
+			<br>
 
 			<label>Lokaal:</label>
 				<select name="lokaal" id="nieuwLokaal">
@@ -63,11 +72,6 @@ if(!$is_admin){
             <br>
 
 
-			<label>Type:</label>
-				<select name="pc_type">
-				  <option value="0">Vaste computer</option>
-				  <option value="1">Laptop</option>
-				</select>
 
 			<br><br>
 
@@ -111,6 +115,7 @@ if(!$is_admin){
 			<tr class="noSelect">
 				<th width="5%" class="sorttable_nosort"></th>
 				<th width="10%">PC naam</th>
+				<th width="5%">Aantal</th>
 				<th width="10%">RAM (MB)</th>
 				<th width="10%">CPU (GHz)</th>
 				<th width="10%">HDD (GB)</th>
@@ -121,7 +126,7 @@ if(!$is_admin){
 			</tr>
 
 		<?php
-			$qry_lokalen = mysql_query("SELECT a.id, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_images, lokaal, leverancier_naam
+			$qry_lokalen = mysql_query("SELECT a.id, aantal, pc_naam, pc_ram, pc_cpu, pc_hdd, pc_gpu, pc_datumaankoop, pc_netwerkkaart, pc_leverancier, pc_type, pc_images, lokaal, leverancier_naam
 			FROM inventaris a
 			LEFT JOIN lokalen b ON a.lokaal_id = b.id
 			LEFT JOIN leveranciers c ON a.pc_leverancier = c.id");
@@ -133,12 +138,14 @@ if(!$is_admin){
 				$compNaam = $row['pc_naam'];
 				$compSoftware = $row['pc_images'];
 				$compType = $row['pc_type'];
+				$aantal = $row['aantal'];
 
 				echo "<tr>";
 
 					echo "<td style='text-align:center' class='noSelect'>-</td>";
 
 					echo "<td>$compNaam</td>";
+					echo "<td>$aantal</td>";
 					echo "<td>". $row['pc_ram'] ."</td>";
 					echo "<td>". $row['pc_cpu'] ."</td>";
 					echo "<td>". $row['pc_hdd'] ."</td>";
