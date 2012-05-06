@@ -171,7 +171,7 @@ function updateSelectedImage(){
 }
 
 function confirmDelete(a){
-	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?\n(OPGELET: Alle computers die geassocieerd zijn met dit lokalen zullen ook verwijderd worden!)");
+	var msg = confirm("Bent u zeker dat u dit lokaal wilt verwijderen?");
 
 	if(msg){
 		window.location = "edit/deleteLokaal.php?id=" + a;
@@ -191,9 +191,6 @@ function editLokaal(id, lokaal, beschrijving, voorzieningen, aantalpersonen, gek
 	xhr("ajax/images.php", function(data){
 		verwerkImages(data, gekoppelde_image)
 	});
-
-
-
 
 	toggleShade(); // Bewerk overlay tonen
 
