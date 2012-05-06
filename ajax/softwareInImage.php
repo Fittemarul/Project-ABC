@@ -2,21 +2,28 @@
 
 include("../conf/sessionCheck.php");
 include("../conf/db.php");
+include("../conf/functions.php");
 
 $image_id = mysql_real_escape_string($_GET['id']);
 
-$qry_images = mysql_query("SELECT software FROM software WHERE id = $image_id");
+$qry_images = mysql_query("SELECT image_software FROM images WHERE id = $image_id");
 
 $gekoppeld = mysql_fetch_row($qry_images);
-$gekoppeld = str_replace("\n", "<br>", $gekoppeld[0]);
+$gekoppeld = $gekoppeld[0];
 
+$gekoppeld = explode(",", $gekoppeld);
 
 $output = "[";
-
 $output .= "{";
+$output .= "\"software\":\"";
 
-	$output .= "\"software\":\"" .urlencode($gekoppeld). "\"";
 
+for($i = 0; $i <= count($gekoppeld)-1; $i++){
+		$output .= urlencode(getSoftwarePackage($gekoppeld[$i]) . "\n");
+
+}
+
+$output .= "\"";
 
 $output .= "}";
 
