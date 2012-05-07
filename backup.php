@@ -61,7 +61,7 @@ gzwrite($gz, $return);
 gzclose($gz);
 
 
-echo "Alles alles goed ging, is de database gebackupt op de server.<br>";
+echo "Als alles goed verliep, is de database gebackupt op de server.<br>";
 echo "<a href='backups/$filename'>Klik hier om de backup te downloaden (Gzip archief)</a>";
 
 
