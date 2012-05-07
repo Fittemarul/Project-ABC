@@ -58,7 +58,7 @@ if( isset($_GET['mode']) ){
 			<br>
 
 			<h1>Gebruikers wissen</h1>
-			<p>Met deze functie verwijderd u ALLE niet-administrator accounts. Deze actie is onomkeerbaar!</p>
+			<p>Met deze functie verwijdert u ALLE niet-administrator accounts. Deze actie is onomkeerbaar!</p>
 			<button onclick="return confirmDelete()">Accounts verwijderen</button>
 
 
@@ -82,7 +82,7 @@ if( isset($_GET['mode']) ){
 				</ul>
 			</div>
 
-			Wilt u bestaande lokalen overschrijven? <select name="overwrite"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select>
+			Wil u bestaande lokalen overschrijven? <select name="overwrite"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select>
 		<?php
 			} // einde importfunctie klassen
 		?>

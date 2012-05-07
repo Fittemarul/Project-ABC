@@ -43,7 +43,7 @@ if(!$is_admin){
 
 			<!-- LINKSE DIV -->
 			<div style="width:600px">
-				Kies een image die u wilt koppelen aan dit lokaal:
+				Kies een image die u wil koppelen aan dit lokaal:
 					<select id="nieuwImage" onchange="updateSelectedImage()" name="image">
 						<option value="0">Bezig met laden...</option>
 					</select>

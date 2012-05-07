@@ -52,7 +52,7 @@ include("conf/sessionCheck.php");
 				<button type="button" onclick="voegSoftToe()">Voeg toe</button>
 
 				<br><br>
-				Indien u extra software wilt of nog opmerkingen heeft:
+				Indien u extra software wil of nog opmerkingen heeft:
 				<textarea cols="40" rows="10" name="notes"></textarea>
 
 				<br><br>
